@@ -1,0 +1,81 @@
+:root {
+    --frutiger-tile-grad: linear-gradient(rgba(167, 167, 167, 0.7) 50%, rgba(228, 228, 228, 0.6));
+    --frutiger-menu-grad: linear-gradient(rgba(167, 167, 167, 1) 50%, rgba(228, 228, 228, 0.8));
+    --frutiger-button-grad: linear-gradient(rgba(220, 220, 220, 0.8), rgba(167, 167, 167, 0.8), rgba(228, 228, 228, 0.7));
+    --frutiger-outline: 1px solid rgba(161, 161, 161, 0.2);
+    --frutiger-glossy-grad: linear-gradient(10deg, rgba(230, 230, 230, 0.5), rgba(200, 200, 200, 0.5));
+
+    --popup-bg: rgba(0, 0, 0, 0.5);
+}
+
+.red {
+    --frutiger-bg: url('../images/backgrounds/windows_vista_30.jpg');
+    --frutiger-tile-grad: linear-gradient(rgba(163, 19, 38, 0.7) 50%, rgba(247, 79, 68, 0.6));
+    --frutiger-menu-grad: linear-gradient(rgba(163, 19, 38, 1) 50%, rgba(247, 79, 68, 0.8));
+    --frutiger-button-grad: linear-gradient(rgba(235, 71, 59, 0.8), rgba(163, 19, 38, 0.8), rgba(247, 79, 68, 0.7));
+    --frutiger-outline: 1px solid rgba(128, 28, 21, 0.2);
+    --frutiger-glossy-grad: linear-gradient(10deg, rgba(247, 79, 68, 0.5), rgba(163, 19, 38, 0.5));
+}
+
+.orange {
+    --frutiger-bg: url('../images/backgrounds/windows_vista_11.jpg');
+    --frutiger-tile-grad: linear-gradient(rgba(163, 77, 19, 0.7) 50%, rgba(238, 165, 55, 0.6));
+    --frutiger-menu-grad: linear-gradient(rgba(163, 77, 19, 1) 50%, rgba(238, 165, 55, 0.8));
+    --frutiger-button-grad: linear-gradient(rgba(230, 157, 48, 0.8), rgba(163, 77, 19, 0.8), rgba(238, 165, 55, 0.7));
+    --frutiger-outline: 1px solid rgba(128, 60, 21, 0.2);
+    --frutiger-glossy-grad: linear-gradient(10deg, rgba(238, 165, 55, 0.5), rgba(163, 77, 19, 0.5));
+}
+
+.yellow {
+    --frutiger-bg: url('../images/backgrounds/miscellaneous_7.jpg');
+    --frutiger-tile-grad: linear-gradient(rgba(163, 113, 19, 0.7) 50%, rgba(238, 220, 55, 0.6));
+    --frutiger-menu-grad: linear-gradient(rgba(163, 113, 19, 1) 50%, rgba(238, 220, 55, 0.8));
+    --frutiger-button-grad: linear-gradient(rgba(226, 208, 46, 0.8), rgba(163, 113, 19, 0.8), rgba(238, 220, 55, 0.7));
+    --frutiger-outline: 1px solid rgba(128, 82, 21, 0.2);
+    --frutiger-glossy-grad: linear-gradient(10deg, rgba(238, 220, 55, 0.5), rgba(163, 113, 19, 0.5));
+}
+
+.green {
+    --frutiger-bg: url('../images/backgrounds/asadal_stock_4.jpg');
+    --frutiger-tile-grad: linear-gradient(rgba(21, 128, 39, 0.7) 50%, rgba(103, 202, 21, 0.6));
+    --frutiger-menu-grad: linear-gradient(rgba(21, 128, 39, 1) 50%, rgba(103, 202, 21, 0.8));
+    --frutiger-button-grad: linear-gradient(rgba(56, 184, 17, 0.8), rgba(21, 128, 39, 0.8), rgba(103, 202, 21, 0.7));
+    --frutiger-outline: 1px solid rgba(21, 128, 39, 0.2);
+    --frutiger-glossy-grad: linear-gradient(10deg, rgba(103, 202, 21, 0.5), rgba(21, 128, 39, 0.5));
+}
+
+.blue {
+    --frutiger-bg: url('../images/backgrounds/asadal_stock_7.jpg');
+    --frutiger-tile-grad: linear-gradient(rgba(61, 151, 255, 0.7) 50%, rgba(156, 227, 255, 0.6));
+    --frutiger-menu-grad: linear-gradient(rgba(61, 151, 255, 1) 50%, rgba(156, 227, 255, 0.8));
+    --frutiger-button-grad: linear-gradient(rgba(141, 215, 245, 0.8), rgba(61, 151, 255, 0.8), rgba(156, 227, 255, 0.7));
+    --frutiger-outline: 1px solid rgba(21, 85, 128, 0.2);
+    --frutiger-glossy-grad: linear-gradient(10deg, rgba(156, 227, 255, 0.5), rgba(61, 151, 255, 0.5));
+}
+
+.white {
+    --frutiger-bg: url('../images/backgrounds/windows_stock_photos_21.jpg');
+    --frutiger-tile-grad: linear-gradient(rgba(185, 185, 185, 0.7) 50%, rgba(245, 245, 245, 0.6));
+    --frutiger-menu-grad: linear-gradient(rgba(185, 185, 185, 1) 50%, rgba(245, 245, 245, 0.8));
+    --frutiger-button-grad: linear-gradient(rgba(237, 237, 237, 0.8), rgba(185, 185, 185, 0.8), rgba(245, 245, 245, 0.7));
+    --frutiger-outline: 1px solid rgba(209, 209, 209, 0.2);
+    --frutiger-glossy-grad: linear-gradient(10deg, rgba(245, 245, 245, 0.5), rgba(185, 185, 185, 0.5));
+}
+
+.black {
+    --frutiger-bg: url('../images/backgrounds/thumb-1920-29990.jpg');
+    --frutiger-tile-grad: linear-gradient(rgba(5, 5, 5, 0.7) 50%, rgba(31, 31, 31, 0.6));
+    --frutiger-menu-grad: linear-gradient(rgba(5, 5, 5, 1) 50%, rgba(31, 31, 31, 0.8));
+    --frutiger-button-grad: linear-gradient(rgba(26, 26, 26, 0.8), rgba(5, 5, 5, 0.8), rgba(31, 31, 31, 0.7));
+    --frutiger-outline: 1px solid rgba(122, 122, 122, 0.2);
+    --frutiger-glossy-grad: linear-gradient(10deg, rgba(31, 31, 31, 0.5), rgba(5, 5, 5, 0.5));
+}
+
+.pug {
+    --frutiger-bg: url('../images/backgrounds/puginarug.png');
+    --frutiger-tile-grad: linear-gradient(rgba(44, 13, 0, 0.7) 50%, rgba(75, 39, 9, 0.6));
+    --frutiger-menu-grad: linear-gradient(rgba(44, 13, 0, 1) 50%, rgba(75, 39, 9, 0.8));
+    --frutiger-button-grad: linear-gradient(rgba(26, 26, 26, 0.8), rgba(5, 5, 5, 0.8), rgba(31, 31, 31, 0.7));
+    --frutiger-outline: 1px solid rgba(122, 122, 122, 0.2);
+    --frutiger-glossy-grad: linear-gradient(10deg, rgba(31, 31, 31, 0.5), rgba(5, 5, 5, 0.5));
+}

@@ -1,0 +1,5 @@
+ErrorDocument 404 /chris_blue/error.php
+ErrorDocument 500 /chris_blue/error.php
+ErrorDocument 403 /chris_blue/error.php
+ErrorDocument 400 /chris_blue/error.php
+ErrorDocument 401 /chris_blue/error.php
