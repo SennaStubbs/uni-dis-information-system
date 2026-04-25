@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 08, 2026 at 04:06 AM
+-- Host: localhost
+-- Generation Time: Apr 25, 2026 at 09:40 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `chris_blue`
+-- Database: `php_information_system`
 --
 
 -- --------------------------------------------------------
@@ -993,7 +993,8 @@ INSERT INTO `items` (`item_id`, `item_name`, `item_description`, `item_rarity`, 
 (948, 'Mobile Workbench', 'Sturdy mobile workbench with storage options.', 'Common', 1909, 4100, 3537),
 (949, 'bleh', '', 'Common', 50, 50, 50),
 (950, 'bleh', '', 'Common', 50, 50, 500),
-(951, 'bleh', '', 'Common', 50, 50, 500);
+(951, 'bleh', '', 'Common', 50, 50, 500),
+(952, 'blehh', 'blehhh', 'Unreal', 100, 100, 100);
 
 -- --------------------------------------------------------
 
@@ -4063,7 +4064,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=952;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=953;
 
 --
 -- AUTO_INCREMENT for table `users`

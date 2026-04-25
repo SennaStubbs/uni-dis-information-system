@@ -1,0 +1,27 @@
+ALL IMAGE ASSETS OBTAINED FROM https://frutigeraeroarchive.org/
+
+
+What needs to be added:
+- Sort by columns (item id, item name, etc)
+- Clicking item rarity on table chooses to filter by that rarity
+- Select elements (dropdown menus) are properly styled
+- User management page
+- Responsiveness
+- Error popups for when something goes wrong when doing ANYTHING with the database or just other stuff in general idk :P
+- Dashboard with charts
+
+# Items Information System
+{description of the project, including where assets are from}
+
+This project was developed for the **Developing Information Systems** module of a foundation degree in **Computer Science and Digital Technologies**.
+
+## Set up
+1. Install **XAMPP Control Panel**
+2. Start modules **'Apache'** and **'MySQL'**
+3. Import the **'php_information_syste,.sql'** database into **phpMyAdmin** (the version of the SQL being imported may need to be changed to an earlier version than what is currently listed)
+4. Place the **'website'** folder into **'htdocs'** in your **'xampp'** directory (e.g. ***C:\\xampp\\htdocs***)
+5. Go to **'http://localhost/website/'** in your browser
+
+All user accounts have plaintext passwords stored in the database, allowing you to log in with what you find in the '**users**' table.
+
+---
