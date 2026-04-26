@@ -103,8 +103,6 @@ async function UpdateItemsTable() {
     })
     .then((response) => response.text())
     .then((data) => {
-        console.log(data);
-
         // Get pagination info
         let dataSplit = data.split(/!!!pagination:/);
         let data_paginationInfo = JSON.parse(dataSplit[1]);

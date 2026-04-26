@@ -53,7 +53,7 @@
 				</div>
 				<!-- Items table -->
 				<table class="frutiger-tile" id="items-table">
-					
+
 				</table>
 			</div>
 			<div class="charts">
@@ -124,8 +124,8 @@
 				<p class="question"></p>
 				<p class="message"></p>
 				<div class="buttons">
-					<button class="frutiger-tile continue" onclick="">Continue</button>
-					<button class="frutiger-tile cancel">Go Back</button>
+					<button class="frutiger-tile continue">Continue</button>
+					<button class="frutiger-tile cancel" onclick="ClosePopup()">Go Back</button>
 				</div>
 			</div>
 		</div>

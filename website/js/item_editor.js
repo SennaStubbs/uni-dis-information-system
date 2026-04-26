@@ -1,40 +1,32 @@
-// Items
 // Deleting
 async function Post_DeleteItem(itemId) {
-    let form = document.getElementById('delete_item_' + itemId);
-    if (form) {
-        await fetch(window.location.origin + "/chris_blue/operations/item/delete_item.php", {
+    let formData = new FormData();
+    formData.append('item_id', itemId);
+
+    if (formData) {
+        await fetch(window.location.origin + "/information_system/website/operations/item/delete_item", {
             method: 'POST',
-            body: new FormData(form)
+            body: formData
         })
         .then((response) => response.text())
-        .then((data) => console.log(data));
+        .then((data) => {
+            ClosePopup();
+            switch (data) {
+                case 'error':
+                    MessagePopup('Error', 'Something went wrong when trying to delete Item Id ' + itemId);
+                    break;
+                case 'cannot perform':
+                    MessagePopup('Invalid Access Level', 'You do not have access rights to edit Item Id ' + itemId);
+                    break;
+                case 'success':
+                    UpdateItemsTable();
+                    break;
+            }
+        });
     }
-
-    ClosePopup();
-    window.location.reload(true);
 }
-
-// function DeleteItem(itemId) {
-//     document.getElementById('delete_item_' + itemId).submit();
-// }
 
 // Editing
-async function Post_EditItem(itemId) {
-    let form = document.getElementById('edit_item_' + itemId);
-    if (form) {
-        await fetch(window.location.origin + "/chris_blue/operations/item/edit_item.php", {
-            method: 'POST',
-            body: new FormData(form)
-        })
-        .then((response) => response.text())
-        .then((data) => console.log(data));
-    }
-
-    ClosePopup();
-    window.location.reload(true);
-}
-
 let currentlyEditingId = -1; // Item ID of current row being edited - only one row can be edited at a time
 let defaultEditingValues = {};
 function EditItem(itemId, defaultValues) {
@@ -93,6 +85,35 @@ function CancelItemEdit(itemId) {
     }
 }
 
+// Perform edit
+async function Post_EditItem(itemId) {
+    let form = document.getElementById('edit_item_' + itemId);
+    if (form) {
+        await fetch(window.location.origin + "/information_system/website/operations/item/edit_item", {
+            method: 'POST',
+            body: new FormData(form)
+        })
+        .then((response) => response.text())
+        .then((data) => {
+            ClosePopup();
+            switch (data) {
+                case 'error':
+                    MessagePopup('Error', 'Something went wrong when trying to edit Item Id ' + itemId);
+                    break;
+                case 'cannot perform':
+                    MessagePopup('Invalid Access Level', 'You do not have access rights to edit Item Id ' + itemId);
+                    break;
+                case 'success':
+                    currentlyEditingId = -1;
+
+                    UpdateItemsTable();
+                    break;
+            }
+        });
+    }
+}
+
+// Add
 let addItemForm = document.getElementById('add-item');
 let addItemButton = document.getElementById('table-add-item')
 let addItemContainer = document.getElementById('add-item-container');

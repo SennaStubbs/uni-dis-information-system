@@ -96,7 +96,7 @@
                 <td class="item-total-times-sold item-display" style="text-align: center"><?php echo $row['item_total_times_sold'] ?></td>
 
                 <!-- Form for editing -->
-                <form class="edit" method="post" action="javascript:Post_EditItem(<?php echo $row['item_id'] ?>)" id="edit_item_<?php echo $row['item_id'] ?>"></form>
+                <form class="edit" id="edit_item_<?php echo $row['item_id'] ?>"></form>
                 <!-- Edit inputs -->
                 <td class="item-id hidden" style="text-align: center"><input value="<?php echo $row['item_id'] ?>" name="item_id" form="edit_item_<?php echo $row['item_id'] ?>"></td>
                 <td class="item-name edit-input hidden">
@@ -128,9 +128,6 @@
                 <?php if ($user_access_level == -1): ?>
                 <!-- Editing and deleting row -->
                 <td class="admin-actions item-display" style="text-align: center">
-                    <form method="post" action="javascript:Post_DeleteItem(<?php echo $row['item_id'] ?>)" id="delete_item_<?php echo $row['item_id'] ?>">
-                        <input name="item_id" value="<?php echo $row['item_id'] ?>">
-                    </form>
                     <button style="background-image: url('images/icons/edit.png')" title="Edit Item"
                         onclick="EditItem(<?php echo $row['item_id'] ?>, {
                             'name': '<?php echo $row['item_name'] ?>',

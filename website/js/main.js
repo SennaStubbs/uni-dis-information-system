@@ -16,38 +16,38 @@ let popupTemplate =
     </div>
 </div>`;
 
+
+var popupElement = document.getElementById('popup');
+if (popupElement) {
+    var popupTitle = document.getElementById('popup').getElementsByClassName('question')[0];
+    var popupMessage = document.getElementById('popup').getElementsByClassName('message')[0];
+    var popupContinueButton = document.getElementById('popup').getElementsByClassName('continue')[0];
+    var popupCancelButton = document.getElementById('popup').getElementsByClassName('cancel')[0];
+}
+
+var popup_ContinueFunction;
+
 function ConfirmationPopup(question, message, action, actionValues) {
-    document.getElementById('popup').classList.remove('hidden');
+    popupElement.classList.remove('hidden');
 
-    document.getElementById('popup').getElementsByClassName('question')[0].innerHTML = question;
-    document.getElementById('popup').getElementsByClassName('message')[0].innerHTML = message;
+    popupTitle.innerHTML = question;
+    popupMessage.innerHTML = message;
 
-    let continueButton = document.getElementById('popup').getElementsByClassName('continue')[0];
-
-    let cancelButton = document.getElementById('popup').getElementsByClassName('cancel')[0];
-    cancelButton.style = "block";
+    popupCancelButton.style.display = "block";
 
     if (action == 'delete_item' && actionValues['itemId']) {
         function _() {
-            document.getElementById('delete_item_' + actionValues['itemId']).submit();
+            Post_DeleteItem(actionValues['itemId']);
         }
-        continueButton.addEventListener('click', _);
-
-        cancelButton.addEventListener('click', function() {
-            ClosePopup();
-            continueButton.removeEventListener('click', _);
-        });
+        popupContinueButton.addEventListener('click', _);
+        popup_ContinueFunction = _;
     }
     else if (action == 'edit_item' && actionValues['itemId']) {
         function _() {
-            document.getElementById('edit_item_' + actionValues['itemId']).submit();
+            Post_EditItem(actionValues['itemId']);
         }
-        continueButton.addEventListener('click', _);
-
-        cancelButton.addEventListener('click', function() {
-            ClosePopup();
-            continueButton.removeEventListener('click', _);
-        });
+        popupContinueButton.addEventListener('click', _);
+        popup_ContinueFunction = _;
     }
     else if (action == 'cancel_edit' && actionValues['itemId']) {
         function _() {
@@ -61,35 +61,37 @@ function ConfirmationPopup(question, message, action, actionValues) {
                 EditItem(actionValues['tryingToEdit_ItemId']);
             }
         }
-        continueButton.addEventListener('click', _);
-
-        cancelButton.addEventListener('click', function() {
-            ClosePopup();
-            continueButton.removeEventListener('click', _);
-        });
+        popupContinueButton.addEventListener('click', _);
+        popup_ContinueFunction = _;
     }
         
 }
 
 function MessagePopup(title, message) {
-    document.getElementById('popup').classList.remove('hidden');
+    popupElement.classList.remove('hidden');
 
-    document.getElementById('popup').getElementsByClassName('question')[0].innerHTML = question;
-    document.getElementById('popup').getElementsByClassName('message')[0].innerHTML = message;
+    popupTitle.innerHTML = title;
+    popupMessage.innerHTML = message;
 
-    let continueButton = document.getElementById('popup').getElementsByClassName('continue')[0];
+    popupCancelButton.style.display = "none";
 
-    let cancelButton = document.getElementById('popup').getElementsByClassName('cancel')[0];
-    cancelButton.style = "none";
+    if (popup_ContinueFunction != null) {
+        popupContinueButton.removeEventListener('click', popup_ContinueFunction);
+        popup_ContinueFunction = null;
+    }
 
-    continueButton.addEventListener('click', function() {
-        ClosePopup();
-        continueButton.removeEventListener('click');
-    });
+    
+    popupContinueButton.addEventListener('click', ClosePopup);
+    popup_ContinueFunction = ClosePopup;
 }
 
 function ClosePopup() {
     document.getElementById('popup').classList.add('hidden');
+
+    if (popup_ContinueFunction != null) {
+        popupContinueButton.removeEventListener('click', popup_ContinueFunction);
+        popup_ContinueFunction = null;
+    }
 }
 
 
