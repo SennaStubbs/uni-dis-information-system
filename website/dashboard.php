@@ -1,15 +1,16 @@
 <?php
 	define('ALLOW_ACCESS', true);
 
-    // Need a user account to view
-	if(!isset($_COOKIE['user'])) {
-		header('location: /chris_blue/index.php');
-		exit();
-	}
-
     if (session_status() === PHP_SESSION_NONE) {
 		session_start();
     }
+
+    // Need a user account to view
+    if(!isset($_SESSION['user_id'])) {
+        header('location: index');
+    }
+
+    include ("inc/dbconnect.php");
 
     $rarities = isset($_COOKIE['dashboard_rarities']) ? explode(',', htmlspecialchars($_COOKIE['dashboard_rarities'], ENT_QUOTES, 'UTF-8')) : array();
 
@@ -26,7 +27,7 @@
         </script>
     </head>
     <body>
-        <?php include("../chris_blue/inc/navigation.php"); ?>
+        <?php include("inc/navigation.php"); ?>
 
         <div class="background"></div>
 
@@ -60,7 +61,7 @@
                     <div class="pie-chart-container">
                         <svg class="pie-chart" id="pie-total-items">
                             <?php
-                                function DrawAverageChart($sqlTotalQuery, $sqlRarityQuery, $dbconnect, $shadow = false) {
+                                function DrawChart($sqlTotalQuery, $sqlRarityQuery, $dbconnect, $shadow = false) {
                                     // Chart variables
                                     $chartSize = 300;
                                     $chartMidpoint = $chartSize / 2;
@@ -203,18 +204,18 @@
                                     return $total;
                                 }
                                 // $total = DrawAverageChart("SELECT Avg(item_sell_value) AS 'value' FROM items", "SELECT Avg(item_sell_value) AS 'value' FROM (SELECT item_sell_value FROM items WHERE item_rarity = ?) items", $dbconnect);
-                                $total = DrawAverageChart("SELECT COUNT(item_id) AS 'value' FROM items", "SELECT COUNT(item_id) AS 'value' FROM (SELECT item_id FROM items WHERE item_rarity = ?) items", $dbconnect);
+                                $total = DrawChart("SELECT COUNT(item_id) AS 'value' FROM items", "SELECT COUNT(item_id) AS 'value' FROM (SELECT item_id FROM items WHERE item_rarity = ?) items", $dbconnect);
                             ?>
                         </svg>
                         <!-- Shadows of each section -->
                         <svg class="pie-chart shadow" id="pie-total-items-shadow">
-                            <?php DrawAverageChart("SELECT COUNT(item_id) AS 'value' FROM items", "SELECT COUNT(item_id) AS 'value' FROM (SELECT item_id FROM items WHERE item_rarity = ?) items", $dbconnect, true); ?>
+                            <?php DrawChart("SELECT COUNT(item_id) AS 'value' FROM items", "SELECT COUNT(item_id) AS 'value' FROM (SELECT item_id FROM items WHERE item_rarity = ?) items", $dbconnect, true); ?>
                         </svg>
                     </div>
                     <h2>Total<span class="hidden"> (from selection)</span>: <span class="value" id="pie-total-items-total"><?php echo $total ?> Items</span></h2>
                 </div>
 
-                <!-- Script for pie charts -->
+                <!-- Script for charts -->
                 <script>
                     var rarityOrder = [
                         <?php $i = 1; foreach($rarityOrder as $rarity) {

@@ -1,4 +1,8 @@
 <?php
-    setcookie("user", '', time() - (60), "/", NULL, NULL, true);
-    header('location: /chris_blue/index.php');
+    if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+
+        session_destroy();
+        header('location: /information_system/website/index');
+    }
 ?>

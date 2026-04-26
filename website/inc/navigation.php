@@ -4,7 +4,7 @@
         exit('No direct script access allowed');
     }
 
-    include("../chris_blue/operations/user/get_user.php");
+    include("operations/user/get_user.php");
 ?>
 
 <nav class="frutiger-menu">
@@ -23,14 +23,14 @@
                 </select>
             </label>
         </div>
-        <?php if (isset($_COOKIE['user'])): ?>
+        <?php if (isset($_SESSION['user_id'])): ?>
         <a href="user.php" class="user frutiger-tile" draggable="false">Logged in as <span><?php echo $user_display_name ?></span></a>
-        <form action="/chris_blue/operations/user/logout.php" method="post" id="logout">
+        <form action="/information_system/website/operations/user/logout.php" method="post" id="logout">
             <button class="logout frutiger-tile" form="logout">
-                <?php if ($_COOKIE['user'] == 'chrisblue'): ?>
-                <img src="/chris_blue/images/icons/chris_blue.jpg" id="chris_blue" draggable="false">
+                <?php if ($_SESSION['user_id'] == 3): ?>
+                <img src="/information_system/website/images/icons/chris_blue.jpg" id="chris_blue" draggable="false">
                 <?php else: ?>
-                <img src="/chris_blue/images/icons/gameux_212-9.png" draggable="false">
+                <img src="/information_system/website/images/icons/gameux_212-9.png" draggable="false">
                 <?php endif ?>
             </button>
         </form>

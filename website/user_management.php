@@ -3,26 +3,24 @@
     <?php
         define('ALLOW_ACCESS', true);
 
-        // Need a user account to view
-        if(!isset($_COOKIE['user'])) {
-            header('location: /chris_blue/index.php');
-            exit();
-        }
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        include ("../chris_blue/inc/dbconnect.php");
-        include("../chris_blue/operations/get_user.php");
-
-        // Need a user account with the correct access level to view
-        if($user_access_level != -1) {
-            header('location: /chris_blue/index.php');
+        // Need a user account to view
+        if(!isset($_SESSION['user_id'])) {
+            header('location: index.php');
             exit();
         }
 
+        include ("inc/dbconnect.php");
+        include("operations/user/get_user.php");
 
-
+        // Need a user account with the correct access level to view
+        if($user_access_level != -1) {
+            header('location: index.php');
+            exit();
+        }
 
         // Getting session values
         $num_of_rows = isset($_SESSION['num_of_rows']) ? filter_var($_SESSION['num_of_rows'], FILTER_SANITIZE_NUMBER_INT) : 25;
@@ -61,7 +59,7 @@
     </head>
 
     <body>
-		<?php include("../chris_blue/inc/navigation.php"); ?>
+		<?php include("inc/navigation.php"); ?>
 
         <div class="background"></div>
 

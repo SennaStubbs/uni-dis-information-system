@@ -5,62 +5,48 @@ var filterButtons = document.getElementById('filters').getElementsByTagName('but
 var hoverDistance = 5; // Pixels
 var selectedDistance = 10; // Pixels
 
+// Updating all charts when a new filter is applied
 async function FilterUpdate(initialising) {
-
-
     for (let pieChart of document.getElementsByClassName('pie-chart')) {
         let rarityIndex = 0;
         for (let rarity of rarityOrder) {
             let section = document.getElementById(pieChart.id + '-' + rarity);
             if (section) {
                 section.dataset.selected = selectedRarities.includes(rarity);
-                if (selectedRarities.includes(rarity)) {
+                if (selectedRarities.includes(rarity))
                     filterButtons[rarityIndex].classList.remove('not-selected')
-
-                }
                 else
                     filterButtons[rarityIndex].classList.add('not-selected')
-                // if (!initialising) {
-                //     if (section.dataset.selected == selectedRarities.includes(rarity)) {
-                //         section.dataset.selected = 'true';
-                //     }
-
-                // }
-                // else {
-                //     section.dataset.selected = 'true';
-                // }
 
                 
-                Pie_SelectSection(section);
+                Pie_UpdateSection(section);
             }
                 
             rarityIndex++;
         }
+
+        if (!pieChart.classList.contains('shadow')) {
+            // Update total count
+            let formData = new FormData();
+            formData.append('rarities', selectedRarities);
+
+            await fetch(window.location.origin + "/information_system/website/operations/dashboard/fetch_count", {
+                method: 'POST',
+                body: formData
+            })
+            .then((response) => response.text())
+            .then((data) => {
+                let totalElement = document.getElementById(pieChart.id + '-total');
+                totalElement.innerHTML = data + " Items";
+            });
+        }
     }
 
-    // let formData = new FormData();
-    // formData.append('rarities', selectedRarities);
-
-    // await fetch(window.location.origin + "/chris_blue/operations/dashboard/update_rarity.php", {
-    //     method: 'POST',
-    //     body: formData
-    // })
-    // .then((response) => response.text())
-    // .then((data) => {
-    //     // let totalElement = document.getElementById(pie.id + '-total');
-    //     // // if (selectedRarities.length > 0)
-    //     // //     totalElement.parentElement.getElementsByTagName('span')[0].classList.remove('hidden');
-    //     // // else
-    //     // //     totalElement.parentElement.getElementsByTagName('span')[0].classList.add('hidden');
-    //     // totalElement.innerHTML = data + " Gold Coins";
-    //     console.log(data);
-    // });
-
-    console.log(selectedRarities.toString());
     document.cookie = 'dashboard_rarities=' + selectedRarities.toString();
 }
-FilterUpdate(true);
+FilterUpdate();
 
+// Selecting a rarity to filter by
 function SelectRarityFilter(rarity, section) {
     if (section) {
         section.dataset.selected = !(section.dataset.selected === 'true');
@@ -81,6 +67,8 @@ function SelectRarityFilter(rarity, section) {
     FilterUpdate();
 }
 
+//// Pie charts
+// Hovering a section of a pie chart
 function Pie_HoverSection(event, section, title, value, valueType) {
     let pie = section.parentElement;
     if (section.dataset.selected != 'true') {
@@ -119,7 +107,8 @@ function Pie_HoverSection(event, section, title, value, valueType) {
     Pie_MoveTooltip(event, section);
 }
 
-async function Pie_SelectSection(section) {
+// Updating a section of a pie chart
+async function Pie_UpdateSection(section) {
     let pie = section.parentElement;
     let sectionRarity = section.dataset.rarity;
 
@@ -170,27 +159,9 @@ async function Pie_SelectSection(section) {
 
         sectionShadow.style.fill = 'rgba(0, 0, 0, 0.5)';
     }
-
-    // Update total
-    let formData = new FormData();
-    formData.append('rarities', selectedRarities);
-
-    await fetch(window.location.origin + "/chris_blue/operations/dashboard/fetch_count.php", {
-        method: 'POST',
-        body: formData
-    })
-    .then((response) => response.text())
-    .then((data) => {
-        console.log(selectedRarities);
-        let totalElement = document.getElementById(pie.id + '-total');
-        // if (selectedRarities.length > 0)
-        //     totalElement.parentElement.getElementsByTagName('span')[0].classList.remove('hidden');
-        // else
-        //     totalElement.parentElement.getElementsByTagName('span')[0].classList.add('hidden');
-        totalElement.innerHTML = data + " Items";
-    });
 }
 
+// Resetting a section of a pie chart
 function Pie_ResetSection(event, section) {
     if (section.dataset.selected != 'true') {
         let pie = section.parentElement;
@@ -213,6 +184,7 @@ function Pie_ResetSection(event, section) {
     }
 }
 
+// Tooltip when hovering a section of a pie chart
 function Pie_FillTooltip(section, title, value, valueType) {
     let pie = section.parentElement;
 
@@ -224,6 +196,7 @@ function Pie_FillTooltip(section, title, value, valueType) {
     tooltipValue.innerHTML = "Total: " + value + " " + valueType;
 }
 
+// Moving the tooltip of a pie chart
 function Pie_MoveTooltip(event, section) {
     let pie = section.parentElement;
     let piePosition = pie.getBoundingClientRect();
@@ -240,6 +213,7 @@ function Pie_MoveTooltip(event, section) {
 
 }
 
+// Hiding the tooltip of a pie chart
 function Pie_HideTooltip(event, section) {
     let pie = section.parentElement;
 

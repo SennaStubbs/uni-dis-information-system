@@ -7,7 +7,7 @@
     $database_hostname = "localhost";
     $database_username = "root";
     $database_password = "";
-    $database_name = "chris_blue";
+    $database_name = "php_information_system";
 
     $dbconnect = mysqli_connect($database_hostname, $database_username, $database_password, $database_name);
 

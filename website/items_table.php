@@ -3,111 +3,19 @@
 <?php
 	define('ALLOW_ACCESS', true);
 
-	// Need a user account to view
-	if(!isset($_COOKIE['user'])) {
-		header('location: index.php');
-		exit();
-	}
-
     if (session_status() === PHP_SESSION_NONE) {
 		session_start();
     }
 
+	// Need a user account to view
+	if(!isset($_SESSION['user_id'])) {
+		header('location: index.php');
+		exit();
+	}
+
     include("inc/dbconnect.php");
 
-	// Getting session values
-    $num_of_rows = isset($_SESSION['num_of_rows']) ? filter_var($_SESSION['num_of_rows'], FILTER_SANITIZE_NUMBER_INT) : 25;
-	$rarities = isset($_SESSION['rarities']) ? $_SESSION['rarities'] : array();
-	// Sanitise rarity array
-	foreach ($rarities as $rarity) {
-		$rarities[array_search($rarity, $rarities)] = htmlspecialchars($rarity, ENT_QUOTES, 'UTF-8');
-	}
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['num_of_rows'])) {
-            $num_of_rows = filter_var($_POST['num_of_rows'], FILTER_SANITIZE_NUMBER_INT);
-			$_SESSION['num_of_rows'] = $num_of_rows;
-        }
-
-		if (isset($_POST['rarity'])) {
-			// $removing = substr($_POST['rarity'], -1);
-			// if ($removing == '1') {
-			// 	$rarityString = substr($_POST['rarity'], 0, strlen($_POST['rarity']) - 1);
-			// }
-			// else {
-			// 	$rarityString = $_POST['rarity'];
-			// }
-
-			// if ($removing != 1 && !in_array($rarityString, $rarities)) {
-			// 	array_push($rarities, htmlspecialchars($rarityString, ENT_QUOTES, "UTF-8"));
-			// }
-			// elseif ($removing == 1 && in_array($rarityString, $rarities)) {
-			// 	unset($rarities[array_search($rarityString, $rarities)]);
-			// }
-			if (!in_array($_POST['rarity'], $rarities)) {
-				array_push($rarities, htmlspecialchars($_POST['rarity'], ENT_QUOTES, "UTF-8"));
-			}
-			else {
-				unset($rarities[array_search($_POST['rarity'], $rarities)]);
-			}
-
-			$_SESSION['rarities'] = $rarities;
-		}
-
-		if (isset($_POST['itemId'])) {
-			$num_of_rows = 50;
-			$_SESSION['num_of_rows'] = $num_of_rows;
-		}
-    }
-
-	
-
-	// Create a string for the parameter placeholders filled to the number of rarities
-	$rarity_placeholders = (count($rarities) > 0 ? '?' : '') . (count($rarities) > 1 ? str_repeat(', ?', count($rarities) - 1) : '');
-	// echo $rarity_placeholders;
-
-	// Get (adaptive) parameters for prepared statement of table
-	$table_paramtypes = str_repeat('s', count($rarities));
-	$table_paramtypes_limit = $table_paramtypes . 'ii';
-	$table_bindparams = $rarities;
-	$table_bindparams_limit = $table_bindparams;
-	array_push($table_bindparams_limit, $num_of_rows);
-
-	// Get total number of items
-	if ($rarity_placeholders != "") {
-		$sql = "SELECT COUNT(*) as count FROM items WHERE item_rarity IN ($rarity_placeholders)";
-	}
-	else {
-		$sql = "SELECT COUNT(*) as count FROM items";
-	}
-	$stmt = $dbconnect -> prepare($sql);
-	if ($rarity_placeholders != "") {
-		$stmt -> bind_param($table_paramtypes, ...$table_bindparams);
-	}
-	$stmt -> execute();
-	$result = $stmt -> get_result();
-	$total_items = mysqli_fetch_assoc($result)['count'];
-
-	// Pagination
-	$current_page = max(isset($_GET['page']) ? (int)$_GET['page'] : 1, 1);
-	$offset = ($current_page - 1) * $num_of_rows;
-	$total_pages = ceil($total_items / $num_of_rows);
-
-	// Add as a parameter for prepared statements
-	array_push($table_bindparams_limit, $offset);
-
-    // Prepared statement
-	if ($rarity_placeholders != "") {
-		$table_sql = "SELECT * FROM items WHERE item_rarity IN ($rarity_placeholders) LIMIT ? OFFSET ?";
-	}
-	else {
-		$table_sql = "SELECT * FROM items LIMIT ? OFFSET ?";
-	}
-    $stmt = $dbconnect -> prepare($table_sql);
-
-	$stmt -> bind_param($table_paramtypes_limit, ...$table_bindparams_limit);
-    $stmt -> execute();
-    $table_limit_result = $stmt -> get_result();
+	include('operations/item/load_items_table.php');
 ?>
 
 <!DOCTYPE html>
@@ -115,13 +23,11 @@
     <head>
         <link rel="stylesheet" type="text/css" href="css/styles.css">
         <link rel="stylesheet" type="text/css" href="css/themes.css">
-
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     </head>
 
     <!-- <body class="<?php echo $theme ?>"> -->
 	<body>
-		<?php include($_SERVER['DOCUMENT_ROOT'] . "/chris_blue/inc/navigation.php"); ?>
+		<?php include("inc/navigation.php"); ?>
 
         <div class="background"></div>
         <main>
@@ -251,7 +157,7 @@
 					</button>
 					<div class="frutiger-tile hidden" id="add-item-container">
 						<h1>Add Item</h1>
-						<form action="/chris_blue/operations/item/add_item.php" onsubmit="ValidateAddItem()" method="post" id="add-item">
+						<form action="/information_system/website/operations/item/add_item.php" onsubmit="ValidateAddItem()" method="post" id="add-item">
 							<label>Item Name: <input name="item_name" data-default-value="" required /></label>
 							<label>Item Description: <textarea name="item_description" data-default-value=""></textarea></label>
 							<label>Item Rarity: <select name="item_rarity" data-default-value="Common" required>
@@ -315,7 +221,10 @@
 
 		<!-- Link JavaScript -->
         <script src="js/main.js"></script>
+        <script src="js/items_table.js"></script>
+		<?php if ($user_access_level == -1): ?>
         <script src="js/item_editor.js"></script>
+		<?php endif ?>
     </body>
 </html>
 

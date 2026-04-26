@@ -2,17 +2,17 @@
 
 <?php
 	define('ALLOW_ACCESS', true);
-
-	// Need a user account to view
-	if(!isset($_COOKIE['user'])) {
-		header('location: /chris_blue/index.php');
-	}
     
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
-    }
 
-    include ("../chris_blue/inc/dbconnect.php");
+        // Need a user account to view
+        if(!isset($_SESSION['user_id'])) {
+            header('location: index');
+        }
+
+        include ("inc/dbconnect.php");
+    }
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
     </head>
 
 	<body>
-		<?php include("../chris_blue/inc/navigation.php"); ?>
+		<?php include("inc/navigation.php"); ?>
 
         <div class="background"></div>
         <main>

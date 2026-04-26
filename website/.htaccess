@@ -1,5 +1,15 @@
-ErrorDocument 404 /chris_blue/error.php
-ErrorDocument 500 /chris_blue/error.php
-ErrorDocument 403 /chris_blue/error.php
-ErrorDocument 400 /chris_blue/error.php
-ErrorDocument 401 /chris_blue/error.php
+RewriteEngine on
+
+# Remove ".php"
+RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
+RewriteRule ^ /%1 [NC,L,R]
+
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^ %{REQUEST_URI}.php [NC,L]
+
+# Error redirect
+ErrorDocument 404 /information_system/website/error.php
+ErrorDocument 500 /information_system/website/error.php
+ErrorDocument 403 /information_system/website/error.php
+ErrorDocument 400 /information_system/website/error.php
+ErrorDocument 401 /information_system/website/error.php
