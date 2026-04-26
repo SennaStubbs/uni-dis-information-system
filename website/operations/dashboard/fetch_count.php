@@ -1,7 +1,7 @@
 <?php
     define('ALLOW_ACCESS', true);
 
-    include("../../inc/dbconnect.php");
+    include($_SERVER["DOCUMENT_ROOT"] . "/information_system/website/inc/dbconnect.php");
 
     if (isset($_POST['rarities'])) {
         $rarities = explode(',', htmlspecialchars($_POST['rarities']));

@@ -18,7 +18,6 @@ async function FilterUpdate(initialising) {
                 else
                     filterButtons[rarityIndex].classList.add('not-selected')
 
-                
                 Pie_UpdateSection(section);
             }
                 
@@ -30,14 +29,14 @@ async function FilterUpdate(initialising) {
             let formData = new FormData();
             formData.append('rarities', selectedRarities);
 
-            await fetch(window.location.origin + "/information_system/website/operations/dashboard/fetch_count", {
+            await fetch(window.location.origin + "/information_system/website/operations/dashboard/fetch_" + pieChart.dataset.operation, {
                 method: 'POST',
                 body: formData
             })
             .then((response) => response.text())
             .then((data) => {
                 let totalElement = document.getElementById(pieChart.id + '-total');
-                totalElement.innerHTML = data + " Items";
+                totalElement.innerHTML = data + " " + pieChart.dataset.valueType;
             });
         }
     }
@@ -69,7 +68,7 @@ function SelectRarityFilter(rarity, section) {
 
 //// Pie charts
 // Hovering a section of a pie chart
-function Pie_HoverSection(event, section, title, value, valueType) {
+function Pie_HoverSection(event, section, title, prefix, value, valueType) {
     let pie = section.parentElement;
     if (section.dataset.selected != 'true') {
         let pieWidth = pie.clientWidth;
@@ -101,7 +100,7 @@ function Pie_HoverSection(event, section, title, value, valueType) {
     }
 
     // Fill in tooltip
-    Pie_FillTooltip(section, title, value, valueType);
+    Pie_FillTooltip(section, title, prefix, value, valueType);
 
     // Show tooltip
     Pie_MoveTooltip(event, section);
@@ -184,16 +183,17 @@ function Pie_ResetSection(event, section) {
     }
 }
 
+//// Tooltip for charts
+var tooltipElement = document.getElementById('chart-tooltip');
+var tooltipTitle = tooltipElement.getElementsByTagName('h1')[0];
+var tooltipValue = tooltipElement.getElementsByTagName('p')[0];
+
 // Tooltip when hovering a section of a pie chart
-function Pie_FillTooltip(section, title, value, valueType) {
+function Pie_FillTooltip(section, title, value) {
     let pie = section.parentElement;
 
-    let tooltip = document.getElementById(pie.id + '-tooltip');
-
-    let tooltipTitle = tooltip.getElementsByTagName('h1')[0];
     tooltipTitle.innerHTML = title;
-    let tooltipValue = tooltip.getElementsByTagName('p')[0];
-    tooltipValue.innerHTML = "Total: " + value + " " + valueType;
+    tooltipValue.innerHTML = pie.dataset.valuePrefix + ": " + value + " " + pie.dataset.valueType;
 }
 
 // Moving the tooltip of a pie chart
@@ -201,15 +201,14 @@ function Pie_MoveTooltip(event, section) {
     let pie = section.parentElement;
     let piePosition = pie.getBoundingClientRect();
 
-    let tooltip = document.getElementById(pie.id + '-tooltip');
-    tooltip.classList.remove('hidden');
+    tooltipElement.classList.remove('hidden');
 
-    tooltip.style.top = (piePosition.top + event.offsetY) + 'px';
-    tooltip.style.left = ((piePosition.left + event.offsetX) + 30) + 'px';
+    tooltipElement.style.top = (piePosition.top + event.offsetY) + 'px';
+    tooltipElement.style.left = ((piePosition.left + event.offsetX) + 30) + 'px';
 
     let sectionRarity = section.dataset.rarity;
     if (sectionRarity)
-        tooltip.classList.add(sectionRarity)
+        tooltipElement.classList.add(sectionRarity)
 
 }
 
@@ -217,11 +216,10 @@ function Pie_MoveTooltip(event, section) {
 function Pie_HideTooltip(event, section) {
     let pie = section.parentElement;
 
-    let tooltip = document.getElementById(pie.id + '-tooltip');
-    tooltip.classList.add('hidden');
+    tooltipElement.classList.add('hidden');
 
     let sectionRarity = section.dataset.rarity;
     if (sectionRarity)
-        tooltip.classList.remove(sectionRarity)
+        tooltipElement.classList.remove(sectionRarity)
 }
 

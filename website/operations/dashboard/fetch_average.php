@@ -2,11 +2,10 @@
 
     define('ALLOW_ACCESS', true);
 
-
-    include ($_SERVER['DOCUMENT_ROOT'] . "/chris_blue/inc/dbconnect.php");
+    include($_SERVER["DOCUMENT_ROOT"] . "/information_system/website/inc/dbconnect.php");
 
     if (isset($_POST['rarities'])) {
-        $rarities = explode(',', htmlspecialchars($_POST['rarities'], ENT_QUOTES, "UTF-8"));
+        $rarities = explode(',', htmlspecialchars($_POST['rarities']));
 
         $rarity_placeholders = (count($rarities) > 0 ? '?' : '') . (count($rarities) > 1 ? str_repeat(', ?', count($rarities) - 1) : '');
         
