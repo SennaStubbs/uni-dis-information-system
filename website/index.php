@@ -13,7 +13,7 @@
             exit();
         }
     
-        include("inc/dbconnect.php");
+    include($_SERVER["DOCUMENT_ROOT"] . "/information_system/website/inc/dbconnect.php");
     ?>
 
     <head>
@@ -22,7 +22,7 @@
     </head>
 
     <body>
-		<?php include("inc/navigation.php"); ?>
+		<?php include($_SERVER["DOCUMENT_ROOT"] . "/information_system/website/inc/navigation.php"); ?>
 
         <div class="background"></div>
         <main>

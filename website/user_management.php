@@ -1,57 +1,59 @@
+<?php
+    define('ALLOW_ACCESS', true);
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Need a user account to view
+    if(!isset($_SESSION['user_id'])) {
+        header('location: index.php');
+        exit();
+    }
+
+    include($_SERVER["DOCUMENT_ROOT"] . "/information_system/website/inc/dbconnect.php");
+    include($_SERVER["DOCUMENT_ROOT"] . "/information_system/website/operations/user/get_user.php");
+
+    // Need a user account with the correct access level to view
+    if($user_access_level != -1) {
+        header('location: index.php');
+        exit();
+    }
+
+    // Getting session values
+    $num_of_rows = isset($_SESSION['num_of_rows']) ? filter_var($_SESSION['num_of_rows'], FILTER_SANITIZE_NUMBER_INT) : 25;
+
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if (isset($_POST['num_of_rows'])) {
+            $num_of_rows = filter_var($_POST['num_of_rows'], FILTER_SANITIZE_NUMBER_INT);
+            $_SESSION['num_of_rows'] = $num_of_rows;
+        }
+    }
+
+    // Get total number of users
+    $sql = "SELECT COUNT(*) as count FROM users";
+    $stmt = $dbconnect -> prepare($sql);
+    $stmt -> execute();
+    $result = $stmt -> get_result();
+    $total_users = mysqli_fetch_assoc($result)['count'];
+
+    // Pagination
+    $current_page = max(isset($_GET['page']) ? (int)$_GET['page'] : 1, 1);
+    $offset = ($current_page - 1) * $num_of_rows;
+    $total_pages = ceil($total_users / $num_of_rows);
+
+    // Prepared statement
+    $table_sql = "SELECT * FROM users LIMIT ? OFFSET ?";
+    $stmt = $dbconnect -> prepare($table_sql);
+    $stmt -> bind_param("ii", $num_of_rows, $offset);
+    $stmt -> execute();
+    $table_limit_result = $stmt -> get_result();
+?>
+
 <!DOCTYPE html>
 <html>
-    <?php
-        define('ALLOW_ACCESS', true);
-
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        // Need a user account to view
-        if(!isset($_SESSION['user_id'])) {
-            header('location: index.php');
-            exit();
-        }
-
-        include ("inc/dbconnect.php");
-        include("operations/user/get_user.php");
-
-        // Need a user account with the correct access level to view
-        if($user_access_level != -1) {
-            header('location: index.php');
-            exit();
-        }
-
-        // Getting session values
-        $num_of_rows = isset($_SESSION['num_of_rows']) ? filter_var($_SESSION['num_of_rows'], FILTER_SANITIZE_NUMBER_INT) : 25;
-
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST['num_of_rows'])) {
-                $num_of_rows = filter_var($_POST['num_of_rows'], FILTER_SANITIZE_NUMBER_INT);
-                $_SESSION['num_of_rows'] = $num_of_rows;
-            }
-        }
-
-        // Get total number of users
-        $sql = "SELECT COUNT(*) as count FROM users";
-        $stmt = $dbconnect -> prepare($sql);
-        $stmt -> execute();
-        $result = $stmt -> get_result();
-        $total_users = mysqli_fetch_assoc($result)['count'];
-
-        // Pagination
-        $current_page = max(isset($_GET['page']) ? (int)$_GET['page'] : 1, 1);
-        $offset = ($current_page - 1) * $num_of_rows;
-        $total_pages = ceil($total_users / $num_of_rows);
-
-        // Prepared statement
-        $table_sql = "SELECT * FROM users LIMIT ? OFFSET ?";
-        $stmt = $dbconnect -> prepare($table_sql);
-        $stmt -> bind_param("ii", $num_of_rows, $offset);
-        $stmt -> execute();
-        $table_limit_result = $stmt -> get_result();
-    ?>
+    
 
     <head>
         <link rel="stylesheet" type="text/css" href="css/styles.css">
@@ -59,7 +61,7 @@
     </head>
 
     <body>
-		<?php include("inc/navigation.php"); ?>
+		<?php include($_SERVER["DOCUMENT_ROOT"] . "/information_system/website/inc/navigation.php"); ?>
 
         <div class="background"></div>
 

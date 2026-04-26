@@ -5,7 +5,7 @@
         session_start();
     }
     
-    include("inc/dbconnect.php");
+    include($_SERVER["DOCUMENT_ROOT"] . "/information_system/website/inc/dbconnect.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
         <link rel="stylesheet" type="text/css" href="css/themes.css">
     </head>
     <body>
-        <?php include("inc/navigation.php"); ?>
+		<?php include($_SERVER["DOCUMENT_ROOT"] . "/information_system/website/inc/navigation.php"); ?>
 
         <div class="background"></div>
 

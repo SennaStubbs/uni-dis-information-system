@@ -27,7 +27,7 @@
         </script>
     </head>
     <body>
-        <?php include("inc/navigation.php"); ?>
+		<?php include($_SERVER["DOCUMENT_ROOT"] . "/information_system/website/inc/navigation.php"); ?>
 
         <div class="background"></div>
 
@@ -45,14 +45,11 @@
                 <div id="filters" class="frutiger-tile filters">
 					<h1>Filter Rarity</h1>
                     <div class="rarity-list">
-                    <?php
-                        
-                        foreach ($rarityOrder as $rarity) {
-                            echo '<button id="button-filter-' . $rarity . '" onclick="SelectRarityFilter(`' . $rarity . '`)" class="frutiger-tile rarity ' . $rarity . '">
-                                ' . $rarity . '
-                            </button>';
-                        }
-                    ?>
+                        <?php foreach ($rarityOrder as $rarity) { ?>
+                        <button id="button-filter-<?php echo $rarity ?>" onclick="SelectRarityFilter(`<?php echo $rarity ?>`)" class="frutiger-tile rarity <?php echo $rarity ?>">
+                            <?php echo $rarity ?>
+                        </button>
+                        <?php } ?>
                     </div>
 				</div>
 

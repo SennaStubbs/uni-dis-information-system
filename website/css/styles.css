@@ -610,7 +610,7 @@ main:has(.user-title) {
     align-items: center;
 }
 
-.pagination .pagination-button a {
+.pagination .pagination-button button {
     padding: 5px 20px 8px 20px;
 
     width: min-content;
@@ -629,7 +629,7 @@ main:has(.user-title) {
     user-select: none;
 }
 
-.pagination .pagination-button a.disabled {
+.pagination .pagination-button button:disabled {
     background: linear-gradient(rgba(114, 114, 114, 0.6), rgba(59, 59, 59, 0.6), rgba(122, 122, 122, 0.5));
 
     opacity: 50%;
@@ -996,7 +996,11 @@ a {
     gap: 10px;
     align-items: center;
 
+    width: 100%;
+
     padding: 5px 15px 15px 15px;
+
+    box-sizing: border-box;
 }
 
 /* Buttons */
