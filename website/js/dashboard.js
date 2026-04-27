@@ -7,6 +7,10 @@ var selectedDistance = 10; // Pixels
 
 // Updating all charts when a new filter is applied
 async function FilterUpdate(initialising) {
+    // Update cookie
+    document.cookie = 'dashboard_rarities=' + selectedRarities.toString();
+
+    // Pie charts
     for (let pieChart of document.getElementsByClassName('pie-chart')) {
         let rarityIndex = 0;
         for (let rarity of rarityOrder) {
@@ -41,7 +45,19 @@ async function FilterUpdate(initialising) {
         }
     }
 
-    document.cookie = 'dashboard_rarities=' + selectedRarities.toString();
+    // Tables
+    for (let table of document.getElementsByTagName('table')) {
+        let formData = new FormData();
+        formData.append('rarities', selectedRarities);
+        await fetch(window.location.origin + "/information_system/website/operations/dashboard/fetch_high_value_items", {
+            method: 'POST',
+            body: formData
+        })
+        .then((response) => response.text())
+        .then((data) => {
+            table.outerHTML = data;
+        });
+    }
 }
 FilterUpdate();
 

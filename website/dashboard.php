@@ -274,6 +274,65 @@
                     </div>
                     <h2>Average<span class="hidden"> (from selection)</span>: <span class="value" id="pie-average-sell-value-total"><?php echo $average ?> Gold Coins</span></h2>
                 </div>
+
+                <!-- Top 10 highest valued items -->
+                 <div class="chart-container frutiger-tile">
+                    <h1>Top 10 Items With The Highest Sell Value</h1>
+                    <?php include('operations/dashboard/fetch_high_value_items.php') ?>
+                 </div>
+
+                <!-- Total times sold -->
+                <div class="chart-container frutiger-tile">
+                    <h1>Total Times Sold</h1>
+                    <div class="bar-chart" id="bar-times-sold" data-operation="sum" data-value-prefix="Sum" data-value-type="Times">
+                        <div class="bar-names">
+                            <?php
+                                foreach($rarityOrder as $rarity) { ?>
+                            <h1><?php echo $rarity ?></h1>
+                                <?php }
+                            ?>
+                            <h1 style="font-weight: normal">Times Sold</h1>
+                        </div>
+                        <div class="bars">
+                            <?php
+                                // Chart variables
+                                $_chartSize = 300;
+                                $_chartMidpoint = $_chartSize / 2;
+
+
+                                // Get necessary numbers
+                                $rows = [];
+                                $highestValue = 0;
+                                foreach($rarityOrder as $rarity) {
+                                    $_sql = "SELECT SUM(item_total_times_sold) AS 'sum' FROM items WHERE item_rarity = ?";
+                                    $_stmt = $dbconnect -> prepare($_sql);
+                                    $_stmt->bind_param('s', $rarity);
+                                    $_stmt -> execute();
+                                    $_result = $_stmt -> get_result();
+
+                                    
+                                    if (mysqli_num_rows($_result) > 0) {
+                                        while ($row = mysqli_fetch_assoc($_result)) { 
+                                            array_push($rows, array(
+                                                "rarity" => $rarity,
+                                                "sum" => $row['sum']
+                                            ));
+                                            if ($row['sum'] > $highestValue) {
+                                                $highestValue = $row['sum'];
+                                            }
+                                        }
+                                    }
+                                }
+
+                                
+                                foreach($rows as $row) { ?>
+                                <div class="bar frutiger-tile <?php echo $row['rarity'] ?>" style="width: <?php echo (($row['sum'] / $highestValue) * 100) . '%' ?>"></div>
+                                <?php }
+                            ?>
+                        </div>
+                    </div>
+                    <h2>Average<span class="hidden"> (from selection)</span>: <span class="value" id="bar-times-sold-total"><?php echo '' ?> Times</span></h2>
+                </div>
             </div>
         </main>
 
