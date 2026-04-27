@@ -116,10 +116,10 @@ function Pie_HoverSection(event, section, title, prefix, value, valueType) {
     }
 
     // Fill in tooltip
-    Pie_FillTooltip(section, title, prefix, value, valueType);
+    FillTooltip(section, title, prefix, value, valueType);
 
     // Show tooltip
-    Pie_MoveTooltip(event, section);
+    MoveTooltip(event, section);
 }
 
 // Updating a section of a pie chart
@@ -199,28 +199,42 @@ function Pie_ResetSection(event, section) {
     }
 }
 
+//// Bar charts
+function Bar_HoverSection(event, section, title, value) {
+    let chart = section.parentElement;
+
+    // Fill in tooltip
+    FillTooltip(section, title, value);
+
+    // Show tooltip
+    MoveTooltip(event, section);
+}
+
 //// Tooltip for charts
 var tooltipElement = document.getElementById('chart-tooltip');
 var tooltipTitle = tooltipElement.getElementsByTagName('h1')[0];
 var tooltipValue = tooltipElement.getElementsByTagName('p')[0];
 
-// Tooltip when hovering a section of a pie chart
-function Pie_FillTooltip(section, title, value) {
-    let pie = section.parentElement;
+// Tooltip when hovering a section of a chart
+function FillTooltip(section, title, value) {
+    let chart = section.parentElement;
+    if (chart.classList.contains('bars'))
+        chart = chart.parentElement;
 
     tooltipTitle.innerHTML = title;
-    tooltipValue.innerHTML = pie.dataset.valuePrefix + ": " + value + " " + pie.dataset.valueType;
+    tooltipValue.innerHTML = chart.dataset.valuePrefix + ": " + value + " " + chart.dataset.valueType;
 }
 
-// Moving the tooltip of a pie chart
-function Pie_MoveTooltip(event, section) {
-    let pie = section.parentElement;
-    let piePosition = pie.getBoundingClientRect();
+// Moving the tooltip of a chart
+function MoveTooltip(event, section) {
+    let chart = section.parentElement;
+    if (chart.classList.contains('bars'))
+        chart = chart.parentElement;
 
     tooltipElement.classList.remove('hidden');
 
-    tooltipElement.style.top = (piePosition.top + event.offsetY) + 'px';
-    tooltipElement.style.left = ((piePosition.left + event.offsetX) + 30) + 'px';
+    tooltipElement.style.top = event.clientY + 'px';
+    tooltipElement.style.left = (event.clientX + 30) + 'px';
 
     let sectionRarity = section.dataset.rarity;
     if (sectionRarity)
@@ -228,9 +242,11 @@ function Pie_MoveTooltip(event, section) {
 
 }
 
-// Hiding the tooltip of a pie chart
-function Pie_HideTooltip(event, section) {
-    let pie = section.parentElement;
+// Hiding the tooltip of a chart
+function HideTooltip(event, section) {
+    let chart = section.parentElement;
+    if (chart.classList.contains('bars'))
+        chart = chart.parentElement;
 
     tooltipElement.classList.add('hidden');
 

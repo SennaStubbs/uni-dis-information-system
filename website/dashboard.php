@@ -141,8 +141,8 @@
                         data-percent="<?php echo $portion_percent ?>" data-selected="false"
 
                         onmouseover="Pie_HoverSection(event, this, `<?php echo $portion_rarity ?>`, <?php echo $portion_value ?>)"
-                        onmousemove="Pie_MoveTooltip(event, this)"
-                        onmouseleave="Pie_ResetSection(event, this); Pie_HideTooltip(event, this)"
+                        onmousemove="MoveTooltip(event, this)"
+                        onmouseleave="Pie_ResetSection(event, this); HideTooltip(event, this)"
                         onclick="SelectRarityFilter(``, this)"
 
                         id="<?php echo $chartId ?>-<?php echo $portion_rarity ?>"
@@ -284,14 +284,13 @@
                 <!-- Total times sold -->
                 <div class="chart-container frutiger-tile">
                     <h1>Total Times Sold</h1>
-                    <div class="bar-chart" id="bar-times-sold" data-operation="sum" data-value-prefix="Sum" data-value-type="Times">
+                    <div class="bar-chart" id="bar-times-sold" data-operation="sum" data-value-prefix="Total" data-value-type="Times">
                         <div class="bar-names">
                             <?php
                                 foreach($rarityOrder as $rarity) { ?>
                             <h1><?php echo $rarity ?></h1>
                                 <?php }
                             ?>
-                            <h1 style="font-weight: normal">Times Sold</h1>
                         </div>
                         <div class="bars">
                             <?php
@@ -323,12 +322,39 @@
                                         }
                                     }
                                 }
+                                $incrementalValue = (int)(substr(ceil($highestValue / 9), 0, 1) . str_repeat('0', strlen(ceil($highestValue / 9)) - 1));
 
                                 
                                 foreach($rows as $row) { ?>
-                                <div class="bar frutiger-tile <?php echo $row['rarity'] ?>" style="width: <?php echo (($row['sum'] / $highestValue) * 100) . '%' ?>"></div>
+                                <div class="bar frutiger-tile <?php echo $row['rarity'] ?>"
+                                    style="width: <?php echo (($row['sum'] / ($incrementalValue * 11)) * 100) . '%' ?>"
+                                    data-rarity="<?php echo $row['rarity'] ?>"
+
+                                    onmouseover="Bar_HoverSection(event, this, '<?php echo $row['rarity'] ?>', <?php echo $row['sum'] ?>)"
+                                    onmousemove="MoveTooltip(event, this)"
+                                    onmouseleave="/*Pie_ResetSection(event, this);*/ HideTooltip(event, this)"
+                                    onclick="SelectRarityFilter(``, this)"
+                                ></div>
                                 <?php }
                             ?>
+                        </div>
+                        <div class="bottom-axis">
+                            <div class="bar-names">
+                                <h1 style="font-weight: normal">Times Sold</h1>
+                            </div>
+                            <div class="counters">
+                                <h2></h2>
+                                <?php 
+
+                                    for ($i = 1; $i <= 10; $i++) { ?>
+                                <h2><?php echo $incrementalValue * $i ?></h2>
+                                    <?php }
+
+                                    if ($highestValue % $incrementalValue != 0) { ?>
+                                        <h2><?php echo $incrementalValue * 11 ?></h2>
+                                    <?php }
+                                ?>
+                            </div>
                         </div>
                     </div>
                     <h2>Average<span class="hidden"> (from selection)</span>: <span class="value" id="bar-times-sold-total"><?php echo '' ?> Times</span></h2>

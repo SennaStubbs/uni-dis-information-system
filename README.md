@@ -19,8 +19,9 @@ This project was developed for the **Developing Information Systems** module of 
 1. Install **XAMPP Control Panel**
 2. Start modules **'Apache'** and **'MySQL'**
 3. Import the **'php_information_system.sql'** database into **phpMyAdmin** (the version of the SQL being imported may need to be changed to an earlier version than what is currently listed)
-4. Place the **'website'** folder into **'htdocs'** in your **'xampp'** directory (e.g. ***C:\\xampp\\htdocs***)
-5. Go to **'http://localhost/website/'** in your browser
+4. Create a folder called **'information_system'** in the '**htdocs**' directory of your **'xampp'** directory (e.g. ***C:\\xampp\\htdocs***)
+5. Place the **'website'** folder into the newly created **'information_system'** directory
+6. Go to **'http://localhost/information_system/website/'** in your browser (renaming any folders will break the website)
 
 All user accounts have plaintext passwords stored in the database, allowing you to log in with what you find in the '**users**' table.
 
