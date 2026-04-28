@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 28, 2026 at 07:00 PM
+-- Generation Time: Apr 28, 2026 at 07:43 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -1002,7 +1002,7 @@ INSERT INTO `items` (`item_id`, `item_name`, `item_description`, `item_rarity`, 
 CREATE TABLE `users` (
   `user_id` int(10) NOT NULL,
   `user_username` varchar(20) NOT NULL,
-  `user_password` varchar(50) DEFAULT NULL,
+  `user_password` varchar(50) NOT NULL,
   `user_display_name` varchar(30) NOT NULL,
   `user_access_level` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
