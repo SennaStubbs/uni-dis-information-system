@@ -1,0 +1,659 @@
+:root {
+    --nav-height: 60px;
+}
+
+/* Frutiger font */
+@font-face {
+  font-family: frutiger;
+  src: url('/information_system/website/fonts/Frutiger.ttf');
+}
+
+@font-face {
+  font-family: frutiger;
+  src: url('/information_system/website/fonts/Frutiger_bold.ttf');
+  font-weight: bold;
+}
+
+* {
+    /* position: relative; */
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: frutiger;
+}
+
+body {
+    position: relative;
+
+    margin: 0;
+}
+
+.background {
+    z-index: -1;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-image: var(--frutiger-bg);
+    background-size: cover;
+    background-position: center;
+}
+
+main {
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+
+    margin: 20px;
+
+    height: fit-content;
+    min-height: calc(100vh - var(--nav-height) - 40px);
+}
+
+.hidden {
+    display: none !important;
+}
+
+button.continue {
+    background-color: transparent;
+    background: linear-gradient(rgb(18, 143, 45) 50%, rgb(108, 228, 52));
+    outline: 1px solid rgba(21, 128, 69, 0.2);
+}
+
+button.cancel {
+    background-color: transparent;
+    background: linear-gradient(rgb(143, 18, 35) 50%, rgb(224, 57, 45));
+    outline: 1px solid rgba(128, 28, 21, 0.2);
+}
+
+
+button,
+a {
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    width: fit-content;
+}
+
+/* Navigation Bar */
+nav {
+    z-index: 10;
+
+    position: sticky !important;
+    top: 0;
+
+    width: 100%;
+    height: var(--nav-height);
+
+    border-radius: 0 !important;
+}
+
+nav .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    position: relative;
+
+    margin: 0 auto;
+
+    width: 100%;   
+    max-width: 1200px;
+    height: 100%;
+}
+
+/* User button */
+nav .user {
+    display: block;
+
+    padding: 2px 8px 8px 8px;
+
+    background: linear-gradient(rgb(216, 154, 38) 50%, rgba(238, 220, 55, 1));
+
+    text-shadow: 0px 1px 5px black;
+    text-decoration: none;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+nav .user span {
+    font-weight: 900;
+}
+
+/* Logout button */
+nav .logout {
+    height: 100%;
+
+    margin: 0;
+    padding: 2px;
+
+    width: 45px;
+    height: 45px;
+
+    background-color: transparent;
+    background: linear-gradient(rgb(88, 12, 22) 50%, rgb(219, 25, 11));
+    /* background: linear-gradient(rgb(179, 36, 25), rgb(88, 12, 22), rgb(216, 39, 26)); */
+    outline: 1px solid rgba(128, 28, 21, 0.2);
+
+    border: none;
+    border-radius: 100%;
+
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.3);
+
+    cursor: pointer;
+    user-select: none;
+}
+
+nav .logout img {
+    position: initial;
+    width: 100%;
+    height: 100%;
+}
+
+/* Fun */
+.logout:has(#chris_blue) {
+    padding: 0 !important
+}
+
+#chris_blue {
+    /* width: 96px;
+    height: 96px; */
+
+    animation: rainbow 2s linear infinite;
+
+}
+
+@keyframes rainbow {
+    0% {
+        filter: hue-rotate(0deg)
+    }
+    100% {
+        filter: hue-rotate(360deg)
+    }
+}
+
+/* Theme select */
+nav .theme select {
+    color: black !important;
+}
+
+nav .theme select option {
+    color: black;
+}
+
+/* Confirmation popup */
+body:has(.confirmation-popup:not(.hidden)) {
+    overflow: hidden;
+}
+
+.confirmation-popup {
+    z-index: 11;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: var(--popup-bg);
+}
+
+.confirmation-popup .popup-box {
+    display: block;
+
+    max-width: 800px;
+    width: fit-content;
+    height: fit-content;
+
+    padding: 5px 35px 25px 35px;
+
+    text-shadow: 0px 1px 4px black;
+}
+
+.confirmation-popup .popup-box * {
+    position: relative;
+}
+
+.confirmation-popup .popup-box .question {
+    width: fit-content;
+
+    margin: 0 auto;
+
+    font-size: 50px;
+}
+
+.confirmation-popup .popup-box .message {
+    width: fit-content;
+
+    margin: 10px auto 20px auto;
+
+    text-align: center;
+    font-size: 28px;
+}
+
+.confirmation-popup .popup-box .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+    
+    width: 100%;
+}
+
+.confirmation-popup .popup-box .buttons button {
+    padding: 2px 10px 8px 10px;
+
+    border-radius: 100px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.3);
+
+    font-size: 30px;
+    text-shadow: 0px 1px 4px black;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Rarity Elements */
+/* Containers */
+.rarity-list {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+    width: 100%;
+
+    padding: 5px 15px 15px 15px;
+
+    box-sizing: border-box;
+}
+
+/* Buttons */
+button.rarity,
+a.rarity {
+    flex: 0;
+
+    width: fit-content;
+
+    padding: 0px 6px 6px 6px;
+
+    border-radius: 100px;
+
+    text-shadow: 0px 1px 5px black;
+    text-decoration: none;
+
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+
+    cursor: pointer;
+
+    user-select: none;
+}
+
+/* Aero frutiger highlight */
+button.frutiger-tile:not(:disabled):active,
+a.frutiger-tile:not(.disabled):active {
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+button.frutiger-tile:not(:disabled):hover::after,
+a.frutiger-tile:not(.disabled):hover::after {
+    pointer-events: none;
+
+    display: block;
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 0px;
+}
+
+button.frutiger-tile:not(:disabled):active::after,
+a.frutiger-tile:not(.disabled):hover::after {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+button.frutiger-tile:not(:disabled):active::before,
+a.frutiger-tile:not(.disabled):active::before,
+button.frutiger-tile:disabled:before,
+a.frutiger-tile.disabled:before {
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: none;
+    background-color: rgba(0, 0, 0, 0.1);
+
+    border-radius: 0;
+}
+
+/* Not selected */
+button.rarity.not-selected {
+    filter: grayscale(100%);
+
+    opacity: 50%;
+}
+
+button.rarity.not-selected:not(:disabled):hover {
+    filter: grayscale(80%);
+
+    opacity: 60%;
+}
+
+button.rarity.not-selected:not(:disabled):active {
+    filter: grayscale(50%);
+
+    opacity: 80%;
+}
+
+/* Common */
+.frutiger-tile.Common {
+    background: linear-gradient(rgb(167, 167, 167) 50%, rgb(211, 211, 211));
+    outline: 1px solid rgba(110, 110, 110, 0.2);
+}
+
+.frutiger-button.Common {
+    background: linear-gradient(rgb(211, 211, 211), rgb(168, 168, 168), rgb(223, 223, 223));
+    outline: 1px solid rgba(110, 110, 110, 0.2);
+}
+
+/* Uncommon */
+.frutiger-tile.Uncommon {
+    background: linear-gradient(rgb(76, 136, 68) 50%, rgb(146, 223, 95));
+    outline: 1px solid rgba(21, 128, 53, 0.2);
+}
+
+.frutiger-button.Uncommon {
+    background: linear-gradient(rgb(138, 199, 98), rgb(76, 136, 68), rgb(146, 223, 95));
+    outline: 1px solid rgba(21, 128, 53, 0.2);
+}
+
+/* Rare */
+.frutiger-tile.Rare {
+    background: linear-gradient(rgb(89, 121, 158) 50%, rgb(86, 199, 233));
+    outline: 1px solid rgba(21, 94, 128, 0.2);
+}
+
+.frutiger-button.Rare {
+    background: linear-gradient(rgb(81, 182, 212), rgb(89, 121, 158), rgb(86, 199, 233));
+    outline: 1px solid rgba(21, 94, 128, 0.2);
+}
+
+/* Epic */
+.frutiger-tile.Epic {
+    background: linear-gradient(rgb(99, 64, 119) 50%, rgb(187, 41, 201));
+    outline: 1px solid rgba(62, 21, 128, 0.2);
+}
+
+.frutiger-button.Epic {
+    background: linear-gradient(rgb(162, 39, 173), rgb(99, 64, 119), rgb(187, 41, 201));
+    outline: 1px solid rgba(62, 21, 128, 0.2);
+}
+
+/* Legendary */
+.frutiger-tile.Legendary {
+    background: linear-gradient(rgb(170, 80, 45) 50%, rgb(247, 157, 38));
+    outline: 1px solid rgba(128, 85, 21, 0.2);
+}
+
+.frutiger-button.Legendary {
+    background: linear-gradient(rgb(226, 145, 38), rgb(170, 80, 45) 50%, rgb(247, 157, 38));
+    outline: 1px solid rgba(128, 85, 21, 0.2);
+}
+
+/* Mythic */
+.frutiger-tile.Mythic {
+    background: linear-gradient(rgb(197, 153, 57) 50%, rgb(247, 213, 20));
+    outline: 1px solid rgba(128, 112, 21, 0.2);
+}
+
+.frutiger-button.Mythic {
+    background: linear-gradient(rgb(224, 194, 25), rgb(197, 153, 57), rgb(247, 213, 20));
+    outline: 1px solid rgba(128, 112, 21, 0.2);
+}
+
+/* Exotic */
+.frutiger-tile.Exotic {
+    background: linear-gradient(rgb(196, 46, 103) 50%, rgb(236, 31, 31));
+    outline: 1px solid rgba(128, 28, 21, 0.2);
+}
+
+.frutiger-button.Exotic {
+    background: linear-gradient(rgb(223, 33, 33), rgb(196, 46, 103), rgb(236, 31, 31));
+    outline: 1px solid rgba(128, 28, 21, 0.2);
+}
+
+/* Unreal */
+.frutiger-tile.Unreal {
+    background: linear-gradient(rgb(199, 69, 145) 50%, rgb(255, 106, 235));
+    outline: 1px solid rgba(128, 21, 114, 0.2);
+}
+
+.frutiger-button.Unreal {
+    background: linear-gradient(rgb(235, 103, 217), rgb(199, 69, 145), rgb(255, 106, 235));
+    outline: 1px solid rgba(128, 21, 114, 0.2);
+}
+
+/* Aero Frutiger Styles */
+.frutiger-tile {
+    position: relative;
+
+    background: var(--frutiger-tile-grad);
+
+    backdrop-filter: blur(10px);
+
+    border-radius: 10px;
+    border: none;
+
+    /* outline: 1px solid rgba(21, 128, 39, 0.2); */
+    /* outline: 1px solid rgba(21, 85, 128, 0.2); */
+    outline: var(--frutiger-outline);
+
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3),
+                inset 0px 2px 1px rgba(255, 255, 255, 0.25),
+                inset 0px -2px 1px rgba(0, 0, 0, 0.2);
+    
+    overflow: hidden;
+}
+
+.frutiger-tile::before {
+    pointer-events: none;
+
+    display: block;
+    content: "";
+
+    position: absolute;
+    left: -50%;
+    top: -50%;
+
+    width: 200%;
+    height: 100%;
+
+    background: linear-gradient(rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.04));
+
+    border-radius: 100%;
+}
+
+.frutiger-inset-tile {
+    position: relative;
+
+    background: linear-gradient(rgba(190, 190, 190, 0.5) 0%, rgba(255, 255, 255, 0.4) 50%);
+
+    backdrop-filter: blur(10px);
+
+    border-radius: 10px;
+    border: none;
+
+    /* outline: 1px solid rgba(21, 128, 39, 0.2); */
+    /* outline: 1px solid rgba(21, 85, 128, 0.2); */
+    outline: 1px solid rgba(209, 209, 209, 0.2);
+
+    box-shadow: 0px 2px 5px inset rgba(0, 0, 0, 0.3);/*
+                inset 0px -2px 1px rgba(255, 255, 255, 0.25),
+                inset 0px 2px 1px rgba(0, 0, 0, 0.2); */
+    
+    overflow: hidden;
+}
+
+.frutiger-menu {
+    position: relative;
+
+    background: var(--frutiger-menu-grad);
+    /* background: linear-gradient(rgba(21, 128, 39, 0.7) 50%, rgba(103, 202, 21, 0.6)); */
+
+    backdrop-filter: blur(10px);
+
+    border-radius: 10px;
+
+    outline: var(--frutiger-outline);
+
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3),
+                inset 0px 2px 1px rgba(255, 255, 255, 0.25),
+                inset 0px -2px 1px rgba(0, 0, 0, 0.2);
+    
+    overflow: hidden;
+}
+
+.frutiger-menu::before {
+    pointer-events: none;
+
+    display: block;
+    content: "";
+
+    position: absolute;
+    top: 0;
+
+    width: 100%;
+    height: 50%;
+
+    background: linear-gradient(rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.2) 100%);
+
+    /* border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%; */
+
+    box-shadow: 0px 2px 2px 2px rgba(255, 255, 255, 0.2);
+}
+
+.frutiger-button {
+    position: relative;
+
+    background: linear-gradient(rgb(110, 110, 110), rgb(50, 50, 50), rgb(130, 130, 130));
+
+    border-radius: 30px;
+    border: none;
+
+    outline: 1px solid rgba(88, 88, 88, 0.2);
+
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3),
+                inset 0px 2px 1px rgba(255, 255, 255, 0.25),
+                inset 0px -2px 1px rgba(0, 0, 0, 0.2);
+
+    text-shadow: 0px 1px 4px black;
+    
+    overflow: hidden;
+}
+
+.frutiger-button:not(:disabled):not(.disabled):hover::before {
+    pointer-events: none;
+
+    display: block;
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.1));
+}
+
+.frutiger-button:not(:disabled):not(.disabled):active::before {
+    pointer-events: none;
+
+    display: block;
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.3));
+}
+
+.frutiger-clear {
+    background: linear-gradient(rgba(180, 180, 180, 0.2) 50%, rgba(180, 180, 180, 0.5));
+
+    outline: none;
+}
+
+.frutiger-glossy {
+    position: relative;
+
+    background: var(--frutiger-glossy-grad);
+    backdrop-filter: blur(2px);
+
+    border: none;
+    border-radius: 10px;
+    /* outline: var(--frutiger-outline); */
+
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3),
+                inset 0px 0px 12px rgba(255, 255, 255, 0.4);
+
+    overflow: hidden;
+}
+
+.frutiger-glossy::before {
+    pointer-events: none;
+
+    display: block;
+    content: "";
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(185, 185, 185, 0.2) 36px,
+        rgba(255, 255, 255, 0.6) 108px,
+        rgba(255, 255, 255, 0.6) 144px,
+        rgba(185, 185, 185, 0.2) 180px,
+        rgba(185, 185, 185, 0.2) 216px
+    );
+    background-repeat: repeat;
+
+}

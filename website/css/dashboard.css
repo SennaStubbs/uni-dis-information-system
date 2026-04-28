@@ -1,0 +1,314 @@
+.dashboard {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+
+    position: relative;
+
+    width: fit-content;
+    max-width: 100%;;
+    height: fit-content;
+
+    padding: 30px;
+
+    user-select: none;
+}
+
+/* Charts */
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
+
+    min-width: 200px;
+    min-height: 200px;
+
+    padding: 20px;
+}
+
+.chart-container h1 {
+    position: relative;
+
+    width: 400px;
+
+    margin: 0px 0px 20px 0px;
+
+    font-size: 30px;
+    font-weight: 900;
+    text-align: center;
+    text-shadow: 0px 1px 5px black;
+
+    user-select: none;
+}
+
+.chart-container h2,
+.chart-container h2 span {
+    position: relative;
+
+    width: 400px;
+
+    margin: 5px 0 0 0;
+
+    font-size: 26px;
+    font-weight: 800;
+    text-align: center;
+    text-shadow: 0px 1px 5px black;
+
+    user-select: none;
+}
+
+.chart-container h2 span.value {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* Pie chart */
+.chart-container .pie-chart-container {
+    position: relative;
+}
+
+.chart-container .pie-chart {
+    position: relative;
+
+    /* left: 150px; */
+
+    width: 300px;
+    height: 300px;
+
+    margin: 0 auto;
+
+    aspect-ratio: 1;
+
+    background-color: transparent;
+    outline: none;
+    border-radius: 0;
+
+    overflow: visible;
+
+    /* filter: drop-shadow(0px 5px 0px black)
+            drop-shadow(0px -5px 0px black)
+            drop-shadow(5px 0px 0px black)
+            drop-shadow(-5px 0px 0px black); */
+}
+
+.chart-container .pie-chart.shadow {
+    z-index: -1;
+    position: absolute;
+    /* left: 10px; */
+    left: 0;
+}
+
+.chart-container .pie-chart circle {
+    cursor: pointer;
+
+    transition: all .2s ease;
+}
+
+/* Hide section if another has been selected */
+.chart-container .pie-chart circle:not([data-selected='true']):has(~ circle[data-selected='true']),
+.chart-container .pie-chart circle[data-selected='true'] ~ circle:not([data-selected='true']) {
+    opacity: 20%;
+}
+
+.chart-container .pie-chart circle:not([data-selected='true']):has(~ circle[data-selected='true']):hover,
+.chart-container .pie-chart circle[data-selected='true'] ~ circle:not([data-selected='true']):hover {
+    opacity: 80%;
+}
+
+/* Bar charts */
+.bar-chart {
+    display: flex;
+
+    position: relative;
+
+    width: 500px;
+
+    padding-bottom: 80px;
+    box-sizing: border-box;
+}
+
+.bar-chart .bar-names {
+    z-index: 2;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 136px;
+
+    padding-right: 20px;
+
+    border-top: 2px solid white;
+
+    box-sizing: border-box;
+}
+
+.bar-chart .bar-names h1 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    width: 100%;
+    height: 50px;
+
+    margin: 0;
+
+    border-radius: 20px;
+
+    font-size: 20px;
+}
+
+.bar-chart .bottom-axis {
+    z-index: 1;
+
+    display: flex;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 80px;
+
+    margin-bottom: 2px;
+    padding-right: 1px;
+
+    box-sizing: border-box;
+}
+
+.bar-chart .bottom-axis h1 {
+    height: 30px;
+}
+
+.bar-chart .bottom-axis .counters {
+    flex: 1;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+
+    margin-left: -10px;
+
+    border-left: 2px solid white;
+}
+
+.bar-chart .bottom-axis .counters h2 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    width: 0;
+    height: 50%;
+
+
+    margin: 0;
+
+    font-size: 16px;
+    font-weight: normal;
+
+    transform-origin: 50% 50%;
+    transform: rotate(90deg);
+
+    box-sizing: border-box;
+}
+
+.bar-chart .bottom-axis .counters h2:first-child::after {
+    display: none;
+}
+
+.bar-chart .bottom-axis .counters h2::after {
+    z-index: -5;
+    content: "";
+
+    position: absolute;
+
+    width: 420px;
+    height: 2px;
+
+    top: 50%;
+    bottom: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+
+    background-color: white;
+}
+
+.bar-chart .bottom-axis .counters h2:last-child:after {
+    width: 50px;
+}
+
+.bar-chart .bars {
+    z-index: 2;
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-left: -10px;
+    padding: 5px 0;
+
+    border: 2px solid white;
+    border-radius: 10px 10px 10px 0;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+}
+
+.bar-chart .bars .bar {
+    height: 40px;
+
+    background-color: red;
+    border-radius: 0px 5px 5px 0px;
+
+    box-sizing: border-box;
+
+    transition: all .2s ease;
+}
+
+/* Hide section if another has been selected */
+.bar-chart .bars .bar:not([data-selected='true']):has(~ .bar[data-selected='true']),
+.bar-chart .bars .bar[data-selected='true'] ~ .bar:not([data-selected='true']) {
+    opacity: 50%;
+
+    filter: grayscale(80%);
+}
+
+.bar-chart .bars .bar:not([data-selected='true']):has(~ .bar[data-selected='true']):hover,
+.bar-chart .bars .bar[data-selected='true'] ~ .bar:not([data-selected='true']):hover {
+    opacity: 80%;
+    filter: grayscale(30%);
+}
+
+/* Tooltip */
+.chart-tooltip {
+    z-index: 5;
+
+    position: fixed !important;
+
+    width: fit-content;
+    height: fit-content;
+
+    padding: 5px;
+    
+    text-shadow: 0px 1px 5px black;
+
+    user-select: none;
+}
+
+.chart-tooltip h1 {
+    margin: -5px 0 0 0;
+
+    font-size: 24px;
+}
+
+.chart-tooltip p {
+    margin: 0;
+
+    font-weight: 600;
+}

@@ -1,0 +1,51 @@
+main:has(.error-details) {
+    align-items: center;
+
+    margin: 0;
+    height: 100%;
+}
+
+main .error-details {
+    display: flex;
+    flex-direction: row;
+
+    padding: 30px;
+
+    max-width: 800px;
+    height: fit-content;
+
+    text-shadow: 0px 1px 5px black;
+}
+
+main .error-details * {
+    position: relative;
+}
+
+main .error-details .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+main .error-details .text h1 {
+    margin: 0;
+
+    font-size: 30px;
+    font-weight: 900;
+}
+
+main .error-details .text a {
+    padding: 4px 12px 8px 12px;
+
+    background: var(--frutiger-tile-grad);
+    outline: var(--frutiger-outline);
+    border-radius: 100px;
+    
+    user-select: none;
+    cursor: pointer;
+}
+
+main .error-details img {
+    margin-top: -28px;
+}

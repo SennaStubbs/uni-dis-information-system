@@ -1,0 +1,79 @@
+main:has(.login) {
+    align-items: center;
+
+    margin: 0;
+    height: 100%;
+}
+
+main .login {
+    display: block;
+
+    min-width: 400px;
+    height: fit-content;
+}
+
+main .login form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    padding: 20px;
+}
+
+main .login * {
+    position: relative;
+}
+
+/* Inputs */
+main .login label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    text-shadow: 0px 1px 5px black;
+}
+
+main .login label span {
+    width: 135px;
+
+    font-size: 25px;
+}
+
+main .login label input {
+    padding: 2px 8px 5px 8px;
+
+    /* color: black; */
+    font-size: 25px;
+    text-shadow: 0px 1px 3px black;
+}
+
+/* Login button */
+main .login .login-button {
+    display: block;
+
+    width: fit-content;
+
+    margin-top: 5px;
+    padding: 2px 12px 8px 12px;
+
+    border-radius: 100px;
+
+    font-size: 25px;
+    text-shadow: 0px 2px 4px black;
+
+    box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.3),
+                inset 0px 2px 1px rgba(255, 255, 255, 0.25),
+                inset 0px -2px 1px rgba(0, 0, 0, 0.2);
+
+    cursor: pointer;
+}
+
+/* Errors and messages */
+main .login p {
+    margin: 0;
+
+    color: rgb(255, 164, 164);
+    text-shadow: 0px 1px 5px black;
+}

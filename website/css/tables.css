@@ -1,0 +1,387 @@
+.charts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+
+    width: fit-content;
+    height: fit-content;
+}
+
+.stats {
+    width: 300px;
+    height: fit-content;
+
+    padding: 5px 0 10px 0;
+}
+
+.stats h1 {
+    width: 100%;
+
+    margin: 0;
+
+    text-align: center;
+    font-size: 24px;
+    font-weight: 900;
+
+    text-shadow: 0px 2px 5px black;
+}
+
+.stats h1 span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.stats select {
+    color: black;
+    text-align: center;
+}
+
+.stats select option {
+    color: black;
+    text-align: center;
+}
+
+/* Pagination */
+.pagination {
+    flex: 1;
+    display: flex;
+
+    position: relative;
+
+    margin: 0 auto;
+
+    /* width: 100%; */
+    width: fit-content;
+    max-height: 70px;
+
+    padding: 20px;
+}
+
+.pagination h1 {
+    flex: 0;
+
+    margin: 0 30px;
+
+    min-width: max-content;
+    width: fit-content;
+
+
+    text-align: center;
+    font-size: 24px;
+    font-weight: 900;
+
+    text-shadow: 0px 2px 5px black;
+}
+
+.pagination h1 span.num {
+    margin: 0 4px;
+
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.pagination h1 span.page {
+    display: block;
+}
+
+.pagination .pagination-button {
+    position: relative;
+
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+}
+
+.pagination .pagination-button button {
+    padding: 5px 20px 8px 20px;
+
+    width: min-content;
+
+    background: var(--frutiger-button-grad);
+    outline: var(--frutiger-outline);
+    border-radius: 100px;
+
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.3);;
+
+    text-shadow: 0px 1px 4px black;
+    text-align: center;
+    text-decoration: none;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.pagination .pagination-button button:disabled {
+    background: linear-gradient(rgba(114, 114, 114, 0.6), rgba(59, 59, 59, 0.6), rgba(122, 122, 122, 0.5));
+
+    opacity: 50%;
+
+    cursor: not-allowed;
+}
+
+.table {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.table .stats {
+    width: 100%;
+}
+
+table {
+    position: relative;
+    /* border: 1px solid black; */
+
+    border-collapse: collapse;
+}
+
+th,
+td {
+    position: relative;
+
+    padding: 2px 10px 8px 10px;
+
+    text-shadow: 0px 1px 4px black;
+
+    /* border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px; */
+}
+
+th {
+    font-size: 24px;
+    font-weight: 900;
+
+    text-shadow: 0px 2px 4px black;
+
+    text-align: left;
+}
+
+tr {
+    position: relative;
+}
+
+tr:has(th) {
+    background-color: rgba(255, 255, 255, 0.5);
+
+    box-shadow: 0px 2px 6px rgba(255, 255, 255, 0.5);
+}
+
+tr:not(:has(th)):hover {
+    background-color: rgba(255, 255, 255, 0.2);
+
+    box-shadow: 0px 1px 6px rgba(255, 255, 255, 0.2),
+                0px -1px 6px rgba(255, 255, 255, 0.2);
+}
+
+/* Cell borders */
+tr:not(:has(th)) td:not(:first-child) {
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    /* box-shadow: -2px 0px 2px inset rgba(255, 255, 255, 0.5); */
+
+    /* overflow: visible; */
+}
+
+/* Odd and even backgrounds */
+tr:nth-child(2n) {
+    background-color: rgba(255, 255, 255, 0.1);
+
+    box-shadow: 0px 1px 6px rgba(255, 255, 255, 0.1),
+                0px -1px 6px rgba(255, 255, 255, 0.1);
+}
+
+tr:nth-child(2n):hover {
+    background-color: rgba(255, 255, 255, 0.3);
+
+    box-shadow: 0px 1px 6px rgba(255, 255, 255, 0.3),
+                0px -1px 6px rgba(255, 255, 255, 0.3);
+}
+
+tr:nth-child(n) td {
+    padding-top: 6px;
+    padding-bottom: 12px;
+}
+
+.rarity span {
+    display: block;
+
+    margin: 0 auto;
+    padding: 0px 6px 6px 6px;
+
+    width: fit-content;
+
+    border-radius: 100px;
+
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+
+    user-select: none;
+}
+
+/* Admin actions */
+.admin-actions {
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%; */
+
+    user-select: none;
+}
+
+.admin-actions form {
+    display: none;
+}
+
+.admin-actions button {
+    width: 24px;
+    height: 24px;
+    aspect-ratio: 1;
+
+    margin: 0;
+    padding: 0;
+
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 22px;
+
+    border: none;
+
+    color: transparent;
+
+    cursor: pointer;
+}
+
+/* Editing */
+td.edit-input {
+    display: table-cell;
+
+    /* width: fit-content; */
+}
+
+td.edit-input input {
+    position: relative;
+
+    /* display: block; */
+
+    width: 90%;
+    padding: 2px 8px 5px 8px;
+
+    color: white;
+    text-shadow: 0px 1px 3px black;
+}
+
+td.edit-input select,
+td.edit-input select option {
+    color: black;
+}
+
+/* Table buttons */
+.table-buttons button,
+.table-buttons .buttons input {
+    padding: 2px 10px 6px 10px;
+
+    font-size: 24px;
+    text-shadow: 0px 1px 5px black;
+
+    border-radius: 100px; 
+    cursor: pointer;
+}
+
+.table-buttons .hidden {
+    display: none !important
+}
+
+/* Filters */
+.filters {
+    /* display: flex; */
+
+    position: relative;
+
+    width: fit-content;
+    height: fit-content;
+}
+
+.filters h1 {
+    position: relative;
+
+    /* width: 100%; */
+
+    padding: 0px 15px 6px 15px;
+    margin: 0 0 10px 0;
+
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 2px 6px rgba(255, 255, 255, 0.5);
+
+    text-align: center;
+    font-size: 24px;
+    font-weight: 900;
+    text-shadow: 0px 2px 5px black;
+
+}
+
+/* Add item */
+.add-container {
+    padding: 10px;
+    text-shadow: 0px 1px 5px black;
+}
+
+.add-container h1 {
+    font-size: 24px;
+    text-align: center;
+
+    margin: 0 0 4px 0;
+}
+
+.add-container * {
+    position: relative;
+}
+
+.add-container form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.add-container form label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-container form select,
+.add-container form select option,
+.add-container form textarea {
+    margin-left: 10px;
+
+    color: black;
+}
+
+.add-container form input {
+    height: 1.5em;
+
+    margin-left: 10px;
+    padding: 2px 8px 5px 8px;
+
+    color: white;
+    text-shadow: 0px 1px 3px black;
+}
+
+.add-container .buttons {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    user-select: none;
+}

@@ -17,7 +17,8 @@
     ?>
 
     <head>
-        <link rel="stylesheet" type="text/css" href="css/styles.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/log-in.css">
         <link rel="stylesheet" type="text/css" href="css/themes.css">
     </head>
 
