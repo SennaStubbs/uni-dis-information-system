@@ -25,7 +25,7 @@
         exit();
     }
 
-    if (trim($_user_username) != '' && trim($_user_display_name) != '' && $_user_access_level !== false) {
+    if (trim($_user_username) != '' && trim($_user_password) != '' && trim($_user_display_name) != '' && $_user_access_level !== false) {
         // Check if username already exists
         $stmt = "SELECT user_id FROM users WHERE user_username = ?";
         $sql = $dbconnect -> prepare($stmt);

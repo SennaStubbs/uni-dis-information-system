@@ -107,30 +107,32 @@ async function Post_EditUser(userId) {
     let form = document.getElementById('edit_user_' + userId);
     let formData = new FormData(form);
     if (form) {
-        await fetch(window.location.origin + "/information_system/website/operations/user/edit_user", {
-            method: 'POST',
-            body: formData
-        })
-        .then((response) => response.text())
-        .then((data) => {
-            ClosePopup();
-            switch (data) {
-                case 'error':
-                    MessagePopup('Error', 'Something went wrong when trying to edit User Id ' + userId);
-                    break;
-                case 'cannot perform':
-                    MessagePopup('Invalid Access Level', 'You do not have access rights to edit User Id ' + userId);
-                    break;
-                case 'duplicate username':
-                    MessagePopup('Duplicate Username', "The username '" + formData.get('user_username') + "' already exists!");
-                    break;
-                case 'success':
-                    currentlyEditingId = -1;
+        if (form.reportValidity()) {
+            await fetch(window.location.origin + "/information_system/website/operations/user/edit_user", {
+                method: 'POST',
+                body: formData
+            })
+            .then((response) => response.text())
+            .then((data) => {
+                ClosePopup();
+                switch (data) {
+                    case 'error':
+                        MessagePopup('Error', 'Something went wrong when trying to edit User Id ' + userId);
+                        break;
+                    case 'cannot perform':
+                        MessagePopup('Invalid Access Level', 'You do not have access rights to edit User Id ' + userId);
+                        break;
+                    case 'duplicate username':
+                        MessagePopup('Duplicate Username', "The username '" + formData.get('user_username') + "' already exists!");
+                        break;
+                    case 'success':
+                        currentlyEditingId = -1;
 
-                    UpdateUsersTable();
-                    break;
-            }
-        });
+                        UpdateUsersTable();
+                        break;
+                }
+            });
+        }
     }
 }
 

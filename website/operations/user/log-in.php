@@ -41,8 +41,8 @@
                 echo "error:Invalid username or password.";
             }
         } else {
-            if (!isset($_POST['email']) || trim(htmlspecialchars($_POST['email'])) == "")
-                echo "error:No email submitted.";
+            if (!isset($_POST['username']) || trim(htmlspecialchars($_POST['username'])) == "")
+                echo "error:No username submitted.";
 
             if (!isset($_POST['password']) || trim(htmlspecialchars($_POST['password'])) == "")
                 echo "error:No password submitted.";

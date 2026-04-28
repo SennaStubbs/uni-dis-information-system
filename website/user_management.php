@@ -82,7 +82,7 @@
 						<h1>Add User</h1>
 						<form id="add-user">
 							<label>Username: <input form="add-user" class="frutiger-inset-tile" name="user_username" data-default-value="" required /></label>
-							<label>Password: <input form="add-user" class="frutiger-inset-tile" name="user_password" data-default-value="" /></label>
+							<label>Password: <input form="add-user" class="frutiger-inset-tile" name="user_password" data-default-value="" required /></label>
 							<label>Display Name: <input form="add-user" class="frutiger-inset-tile" name="user_display_name" data-default-value="" required /></label>
 							<label>Access Level: <input form="add-user" class="frutiger-inset-tile" name="user_access_level" type="number" data-default-value="0" required /></label>
 						</form>

@@ -84,7 +84,7 @@
             <input class="frutiger-inset-tile" value="<?php echo $row['user_username'] ?>" name="user_username" form="edit_user_<?php echo $row['user_id'] ?>" required>
         </td>
         <td class="user-password edit-input hidden">
-            <input class="frutiger-inset-tile" value="<?php echo $row['user_password'] ?>" name="user_password" form="edit_user_<?php echo $row['user_id'] ?>">
+            <input class="frutiger-inset-tile" value="<?php echo $row['user_password'] ?>" name="user_password" form="edit_user_<?php echo $row['user_id'] ?>" required>
         </td>
         <td class="user-display-name edit-input hidden">
             <input class="frutiger-inset-tile" value="<?php echo $row['user_display_name'] ?>" name="user_display_name" form="edit_user_<?php echo $row['user_id'] ?>" required>

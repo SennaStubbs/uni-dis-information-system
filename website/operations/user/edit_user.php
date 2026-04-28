@@ -26,7 +26,7 @@
         exit();
     }
 
-    if ($_user_id > 0 && trim($_user_username) != '' && $_user_display_name != '0' && $_user_access_level !== false) {
+    if ($_user_id > 0 && trim($_user_username) != '' && trim($_user_password) != '' && $_user_display_name != '0' && $_user_access_level !== false) {
         // Cannot change the primary admin account
         if ($_user_id == 1) {
             echo 'cannot perform';
