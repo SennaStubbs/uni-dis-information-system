@@ -2,12 +2,24 @@
     --nav-height: 60px;
 }
 
+/* Frutiger font */
+@font-face {
+  font-family: frutiger;
+  src: url('/information_system/website/fonts/Frutiger.ttf');
+}
+
+@font-face {
+  font-family: frutiger;
+  src: url('/information_system/website/fonts/Frutiger_bold.ttf');
+  font-weight: bold;
+}
+
 * {
     /* position: relative; */
     color: white;
     font-weight: bold;
     font-size: 20px;
-    font-family: "Segoe UI", Arial, sans-serif;
+    font-family: frutiger;
 }
 
 body {
