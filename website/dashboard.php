@@ -197,7 +197,7 @@
                     <div class="bar-names">
                         <?php
                             foreach($rarityOrder as $rarity) { ?>
-                        <h1><?php echo $rarity ?></h1>
+                        <h1 data-rarity="<?php echo $rarity ?>" onclick="SelectRarityFilter(``, this)"><?php echo $rarity ?></h1>
                             <?php }
                         ?>
                     </div>
@@ -226,13 +226,23 @@
                                     }
                                 }
                             }
-                            $incrementalValue = (int)(substr(ceil($highestValue / 9), 0, 1) . str_repeat('0', strlen(ceil($highestValue / 9)) - 1));
 
+                            // Find incremental value
+                            $divisor = 1;
+                            $incrementalValue = 0;
+                            do {
+                                if ($highestValue % $divisor >= $highestValue || $divisor > 10000) {
+                                    $incrementalValue = (ceil($highestValue / ($divisor / 10)) * ($divisor / 10)) / 10;
+                                }
+                                else {
+                                    $divisor *= 10;
+                                }
+                            } while ($incrementalValue == 0);
                             
                             foreach($rows as $row) { ?>
                             <div class="bar frutiger-tile <?php echo $row['rarity'] ?>"
                                 id="<?php echo $chartId ?>-<?php echo $row['rarity'] ?>"
-                                style="width: <?php echo (($row['sum'] / ($incrementalValue * 11)) * 100) . '%' ?>"
+                                style="width: <?php echo (($row['sum'] / ($incrementalValue * 10)) * 100) . '%' ?>"
                                 data-rarity="<?php echo $row['rarity'] ?>"
 
                                 onmouseover="Bar_HoverSection(event, this, '<?php echo $row['rarity'] ?>', <?php echo $row['sum'] ?>)"
@@ -253,10 +263,6 @@
 
                                 for ($i = 1; $i <= 10; $i++) { ?>
                             <h2><?php echo $incrementalValue * $i ?></h2>
-                                <?php }
-
-                                if ($highestValue % $incrementalValue != 0) { ?>
-                                    <h2><?php echo $incrementalValue * 11 ?></h2>
                                 <?php }
                             ?>
                         </div>
