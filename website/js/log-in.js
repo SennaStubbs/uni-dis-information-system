@@ -12,8 +12,6 @@ async function LogIn(event) {
         })
         .then((response) => response.text())
         .then((data) => {
-            console.log(data);
-
             let errors = data.match(/error:/g) ? data.replace(/error:/g, '\n').trim().replace('\n', '<br>') : "";
             if (errors != "") {
                 errorText.innerHTML = errors;

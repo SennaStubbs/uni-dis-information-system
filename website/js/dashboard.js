@@ -59,7 +59,6 @@ async function FilterUpdate(initialising) {
     for (let barChart of document.getElementsByClassName('bar-chart')) {
         for (let rarity of rarityOrder) {
             let bar = document.getElementById(barChart.id + '-' + rarity);
-            console.log(barChart.id);
             if (bar) {
                 bar.dataset.selected = selectedRarities.includes(rarity);
             }

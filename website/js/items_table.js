@@ -47,8 +47,6 @@ function ChangePage(value, setTo) {
         paginationInfo['current-page'] = value;
     }
 
-    console.log(value, setTo);
-
     // Update URL
     let newUrl = new URL(window.location.href);
     newUrl.searchParams.set('page', paginationInfo['current-page']);

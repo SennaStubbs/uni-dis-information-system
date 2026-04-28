@@ -159,7 +159,6 @@ async function Post_AddItem() {
             })
             .then((response) => response.text())
             .then((data) => {
-                console.log(data);
                 ClosePopup();
                 switch (data) {
                     case 'error':

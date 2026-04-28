@@ -81,8 +81,6 @@ function CancelUserEdit(itemId) {
     for (row of row_EditInputs) {
         row.classList.add('hidden');
 
-        console.log(defaultEditingValues['access_level']);
-
         // Reset values
         if (defaultEditingValues) {
             if (row.classList.contains('user-username')) {
@@ -115,7 +113,6 @@ async function Post_EditUser(userId) {
         })
         .then((response) => response.text())
         .then((data) => {
-            console.log(data);
             ClosePopup();
             switch (data) {
                 case 'error':
