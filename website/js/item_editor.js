@@ -138,3 +138,35 @@ function HideAddItem() {
     addItemButton.classList.remove('hidden');
     addItemContainer.classList.add('hidden');
 }
+
+// Perform edit
+async function Post_AddItem() {
+    let form = document.getElementById('add-item');
+    for (let e of new FormData(form).entries()) {
+        console.log(e);
+    }
+    if (form) {
+        await fetch(window.location.origin + "/information_system/website/operations/item/add_item", {
+            method: 'POST',
+            body: new FormData(form)
+        })
+        .then((response) => response.text())
+        .then((data) => {
+            console.log(data);
+            ClosePopup();
+            switch (data) {
+                case 'error':
+                    MessagePopup('Error', 'Something went wrong when trying to add an item.');
+                    break;
+                case 'cannot perform':
+                    MessagePopup('Invalid Access Level', 'You do not have access rights to add an item.');
+                    break;
+                case 'success':
+                    MessagePopup('Success', 'The item has been added!');
+                    HideAddItem();
+                    UpdateItemsTable();
+                    break;
+            }
+        });
+    }
+}

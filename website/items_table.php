@@ -72,16 +72,17 @@
 					</h1>
 				</div>
 				<!-- Adding item menu -->
+				<?php if ($user_access_level == -1): ?>
 				<div class="table-buttons">
 					<button class="frutiger-tile" id="table-add-item" onclick="ShowAddItem()">
 						Add Item
 					</button>
 					<div class="frutiger-tile hidden" id="add-item-container">
 						<h1>Add Item</h1>
-						<form action="/information_system/website/operations/item/add_item.php" onsubmit="ValidateAddItem()" method="post" id="add-item">
-							<label>Item Name: <input name="item_name" data-default-value="" required /></label>
-							<label>Item Description: <textarea name="item_description" data-default-value=""></textarea></label>
-							<label>Item Rarity: <select name="item_rarity" data-default-value="Common" required>
+						<form id="add-item">
+							<label>Item Name: <input form="add-item" class="frutiger-inset-tile" name="item_name" data-default-value="" required /></label>
+							<!-- <label>Item Description: <textarea name="item_description" data-default-value=""></textarea></label> -->
+							<label>Item Rarity: <select form="add-item" name="item_rarity" data-default-value="Common" required>
 								<option value="Common" selected>Common</option>
 								<option value="Uncommon">Uncommon</option>
 								<option value="Rare">Rare</option>
@@ -91,12 +92,12 @@
 								<option value="Exotic">Exotic</option>
 								<option value="Unreal">Unreal</option>
 							</select></label>
-							<label>Item Sell Value (Gold Coins): <input name="item_sell_value" type="number" data-default-value="0" required /></label>
-							<label>Item Total Times Collected: <input name="item_total_times_collected" type="number" data-default-value="0" required /></label>
-							<label>Item Total Times Sold: <input name="item_total_times_sold" type="number" data-default-value="0" required /></label>
+							<label>Item Sell Value (Gold Coins): <input form="add-item" class="frutiger-inset-tile" name="item_sell_value" type="number" data-default-value="0" required /></label>
+							<label>Item Total Times Collected: <input form="add-item" class="frutiger-inset-tile" name="item_total_times_collected" type="number" data-default-value="0" required /></label>
+							<label>Item Total Times Sold: <input form="add-item" class="frutiger-inset-tile" name="item_total_times_sold" type="number" data-default-value="0" required /></label>
 						</form>
 						<div class="buttons">
-							<button class="frutiger-tile continue" type="submit" form="add-item">
+							<button class="frutiger-tile continue" type="button" onclick="Post_AddItem()">
 								Add
 							</button>
 							<button class="frutiger-tile cancel" onclick="HideAddItem()">
@@ -105,6 +106,7 @@
 						</div>
 					</div>
 				</div>
+				<?php endif ?>
 				<!-- Item filters -->
 				<div class="frutiger-tile filters" id="filters">
 					<h1>Filter Rarity</h1>

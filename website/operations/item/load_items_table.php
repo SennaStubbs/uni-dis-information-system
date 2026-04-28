@@ -98,9 +98,11 @@
                 <!-- Form for editing -->
                 <form class="edit" id="edit_item_<?php echo $row['item_id'] ?>"></form>
                 <!-- Edit inputs -->
-                <td class="item-id hidden" style="text-align: center"><input value="<?php echo $row['item_id'] ?>" name="item_id" form="edit_item_<?php echo $row['item_id'] ?>"></td>
+                <td class="item-id hidden" style="text-align: center">
+                    <input value="<?php echo $row['item_id'] ?>" name="item_id" form="edit_item_<?php echo $row['item_id'] ?>">
+                </td>
                 <td class="item-name edit-input hidden">
-                    <input value="<?php echo $row['item_name'] ?>" name="item_name" form="edit_item_<?php echo $row['item_id'] ?>">
+                    <input class="frutiger-inset-tile" value="<?php echo $row['item_name'] ?>" name="item_name" form="edit_item_<?php echo $row['item_id'] ?>">
                 </td>
                 <td class="rarity edit-input hidden">
                     <select name="item_rarity" form="edit_item_<?php echo $row['item_id'] ?>">
@@ -115,13 +117,13 @@
                     </select>
                 </td>
                 <td class="item-sell-value edit-input hidden" style="text-align: center">
-                    <input value="<?php echo $row['item_sell_value'] ?>" name="item_sell_value" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;">
+                    <input class="frutiger-inset-tile" value="<?php echo $row['item_sell_value'] ?>" name="item_sell_value" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;">
                 </td>
                 <td class="item-total-times-collected edit-input hidden" style="text-align: center">
-                    <input value="<?php echo $row['item_total_times_collected'] ?>" name="item_total_times_collected" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;">
+                    <input class="frutiger-inset-tile" value="<?php echo $row['item_total_times_collected'] ?>" name="item_total_times_collected" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;">
                 </td>
                 <td class="item-total-times-sold edit-input hidden" style="text-align: center">
-                    <input value="<?php echo $row['item_total_times_sold'] ?>" name="item_total_times_sold" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;">
+                    <input class="frutiger-inset-tile" value="<?php echo $row['item_total_times_sold'] ?>" name="item_total_times_sold" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;">
                 </td>
 
                 <!-- Admin actions -->

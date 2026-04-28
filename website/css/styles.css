@@ -789,11 +789,14 @@ td.edit-input input {
     /* display: block; */
 
     width: 90%;
+    padding: 2px 8px 5px 8px;
 
-    color: black;
+    color: white;
+    text-shadow: 0px 1px 3px black;
 }
 
-td.edit-input select {
+td.edit-input select,
+td.edit-input select option {
     color: black;
 }
 
@@ -958,7 +961,7 @@ a {
     font-size: 24px;
     text-align: center;
 
-    margin: 0 0 16px 0;
+    margin: 0 0 4px 0;
 }
 
 #add-item-container * {
@@ -969,17 +972,44 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
-#add-item-container form input,
+#add-item-container form label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #add-item-container form select,
+#add-item-container form select option,
 #add-item-container form textarea {
+    margin-left: 10px;
 
     color: black;
-    /* text-shadow: 0px 1px 5px black; */
+}
+
+#add-item-container form input {
+    height: 1.5em;
+
+    margin-left: 10px;
+    padding: 2px 8px 5px 8px;
+
+    color: white;
+    text-shadow: 0px 1px 3px black;
 }
 
 #add-item-container .buttons {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 20px;
+
+    width: 100%;
+
+    margin-top: 10px;
+
     user-select: none;
 }
 
