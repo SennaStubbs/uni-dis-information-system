@@ -90,7 +90,7 @@
         <!-- Displaying details -->
         <td class="item-id" style="text-align: center"><?php echo $row['item_id'] ?></td>
         <td class="item-name item-display"><?php echo $row['item_name'] ?></td>
-        <td class="rarity item-display"><span class="frutiger-tile <?php echo $row['item_rarity'] ?>"><?php echo $row['item_rarity'] ?></span></td>
+        <td class="rarity item-display"><span onclick="SelectRarityFilter('<?php echo $row['item_rarity'] ?>')" class="frutiger-tile <?php echo $row['item_rarity'] ?>"><?php echo $row['item_rarity'] ?></span></td>
         <td class="item-sell-value item-display" style="text-align: center"><?php echo $row['item_sell_value'] ?></td>
         <td class="item-total-times-collected item-display" style="text-align: center"><?php echo $row['item_total_times_collected'] ?></td>
         <td class="item-total-times-sold item-display" style="text-align: center"><?php echo $row['item_total_times_sold'] ?></td>

@@ -19,7 +19,6 @@ All user accounts have *plaintext* passwords stored in the database, allowing yo
 
 # Tasks that were not completed
 - Sort by columns (item id, item name, etc)
-- Clicking item rarity on table chooses to filter by that rarity
 - Select elements (dropdown menus) are properly styled
 - Responsiveness
 

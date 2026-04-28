@@ -308,6 +308,21 @@ a.rarity {
     user-select: none;
 }
 
+.rarity span {
+    display: block;
+
+    margin: 0 auto;
+    padding: 0px 6px 6px 6px;
+
+    width: fit-content;
+
+    border-radius: 100px;
+
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
+
+    user-select: none;
+}
+
 /* Aero frutiger highlight */
 button.frutiger-tile:not(:disabled):active,
 a.frutiger-tile:not(.disabled):active {

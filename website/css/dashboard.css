@@ -161,6 +161,10 @@
     font-size: 20px;
 }
 
+.bar-chart .bar-names h1:not(:only-child) {
+    cursor: pointer
+}
+
 .bar-chart .bottom-axis {
     z-index: 1;
 
@@ -269,6 +273,7 @@
     box-sizing: border-box;
 
     transition: all .2s ease;
+    cursor: pointer
 }
 
 /* Hide section if another has been selected */
