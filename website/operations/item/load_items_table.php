@@ -85,75 +85,75 @@
     <?php
         if (mysqli_num_rows($table_limit_result) > 0) {
             while ($row = mysqli_fetch_assoc($table_limit_result)) { ?>
-            <tr id="item_row_<?php echo $row['item_id'] ?>">
-                
-                <!-- Displaying details -->
-                <td class="item-id" style="text-align: center"><?php echo $row['item_id'] ?></td>
-                <td class="item-name item-display"><?php echo $row['item_name'] ?></td>
-                <td class="rarity item-display"><span class="frutiger-tile <?php echo $row['item_rarity'] ?>"><?php echo $row['item_rarity'] ?></span></td>
-                <td class="item-sell-value item-display" style="text-align: center"><?php echo $row['item_sell_value'] ?></td>
-                <td class="item-total-times-collected item-display" style="text-align: center"><?php echo $row['item_total_times_collected'] ?></td>
-                <td class="item-total-times-sold item-display" style="text-align: center"><?php echo $row['item_total_times_sold'] ?></td>
+    <tr id="item_row_<?php echo $row['item_id'] ?>">
+        
+        <!-- Displaying details -->
+        <td class="item-id" style="text-align: center"><?php echo $row['item_id'] ?></td>
+        <td class="item-name item-display"><?php echo $row['item_name'] ?></td>
+        <td class="rarity item-display"><span class="frutiger-tile <?php echo $row['item_rarity'] ?>"><?php echo $row['item_rarity'] ?></span></td>
+        <td class="item-sell-value item-display" style="text-align: center"><?php echo $row['item_sell_value'] ?></td>
+        <td class="item-total-times-collected item-display" style="text-align: center"><?php echo $row['item_total_times_collected'] ?></td>
+        <td class="item-total-times-sold item-display" style="text-align: center"><?php echo $row['item_total_times_sold'] ?></td>
 
-                <!-- Form for editing -->
-                <form class="edit" id="edit_item_<?php echo $row['item_id'] ?>"></form>
-                <!-- Edit inputs -->
-                <td class="item-id hidden" style="text-align: center">
-                    <input value="<?php echo $row['item_id'] ?>" name="item_id" form="edit_item_<?php echo $row['item_id'] ?>">
-                </td>
-                <td class="item-name edit-input hidden">
-                    <input class="frutiger-inset-tile" value="<?php echo $row['item_name'] ?>" name="item_name" form="edit_item_<?php echo $row['item_id'] ?>">
-                </td>
-                <td class="rarity edit-input hidden">
-                    <select name="item_rarity" form="edit_item_<?php echo $row['item_id'] ?>">
-                        <option value="Common" <?php if ($row['item_rarity'] == 'Common'): ?>selected<?php endif ?>>Common</option>
-                        <option value="Uncommon" <?php if ($row['item_rarity'] == 'Uncommon'): ?>selected<?php endif ?>>Uncommon</option>
-                        <option value="Rare" <?php if ($row['item_rarity'] == 'Rare'): ?>selected<?php endif ?>>Rare</option>
-                        <option value="Epic" <?php if ($row['item_rarity'] == 'Epic'): ?>selected<?php endif ?>>Epic</option>
-                        <option value="Legendary" <?php if ($row['item_rarity'] == 'Legendary'): ?>selected<?php endif ?>>Legendary</option>
-                        <option value="Mythic" <?php if ($row['item_rarity'] == 'Mythic'): ?>selected<?php endif ?>>Mythic</option>
-                        <option value="Exotic" <?php if ($row['item_rarity'] == 'Exotic'): ?>selected<?php endif ?>>Exotic</option>
-                        <option value="Unreal" <?php if ($row['item_rarity'] == 'Unreal'): ?>selected<?php endif ?>>Unreal</option>
-                    </select>
-                </td>
-                <td class="item-sell-value edit-input hidden" style="text-align: center">
-                    <input class="frutiger-inset-tile" value="<?php echo $row['item_sell_value'] ?>" name="item_sell_value" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;">
-                </td>
-                <td class="item-total-times-collected edit-input hidden" style="text-align: center">
-                    <input class="frutiger-inset-tile" value="<?php echo $row['item_total_times_collected'] ?>" name="item_total_times_collected" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;">
-                </td>
-                <td class="item-total-times-sold edit-input hidden" style="text-align: center">
-                    <input class="frutiger-inset-tile" value="<?php echo $row['item_total_times_sold'] ?>" name="item_total_times_sold" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;">
-                </td>
+        <!-- Form for editing -->
+        <form class="edit" id="edit_item_<?php echo $row['item_id'] ?>"></form>
+        <!-- Edit inputs -->
+        <td class="item-id hidden" style="text-align: center">
+            <input value="<?php echo $row['item_id'] ?>" name="item_id" form="edit_item_<?php echo $row['item_id'] ?>" required>
+        </td>
+        <td class="item-name edit-input hidden">
+            <input class="frutiger-inset-tile" value="<?php echo $row['item_name'] ?>" name="item_name" form="edit_item_<?php echo $row['item_id'] ?>" required>
+        </td>
+        <td class="rarity edit-input hidden">
+            <select name="item_rarity" form="edit_item_<?php echo $row['item_id'] ?>" required>
+                <option value="Common" <?php if ($row['item_rarity'] == 'Common'): ?>selected<?php endif ?>>Common</option>
+                <option value="Uncommon" <?php if ($row['item_rarity'] == 'Uncommon'): ?>selected<?php endif ?>>Uncommon</option>
+                <option value="Rare" <?php if ($row['item_rarity'] == 'Rare'): ?>selected<?php endif ?>>Rare</option>
+                <option value="Epic" <?php if ($row['item_rarity'] == 'Epic'): ?>selected<?php endif ?>>Epic</option>
+                <option value="Legendary" <?php if ($row['item_rarity'] == 'Legendary'): ?>selected<?php endif ?>>Legendary</option>
+                <option value="Mythic" <?php if ($row['item_rarity'] == 'Mythic'): ?>selected<?php endif ?>>Mythic</option>
+                <option value="Exotic" <?php if ($row['item_rarity'] == 'Exotic'): ?>selected<?php endif ?>>Exotic</option>
+                <option value="Unreal" <?php if ($row['item_rarity'] == 'Unreal'): ?>selected<?php endif ?>>Unreal</option>
+            </select>
+        </td>
+        <td class="item-sell-value edit-input hidden" style="text-align: center">
+            <input class="frutiger-inset-tile" value="<?php echo $row['item_sell_value'] ?>" name="item_sell_value" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;" required>
+        </td>
+        <td class="item-total-times-collected edit-input hidden" style="text-align: center">
+            <input class="frutiger-inset-tile" value="<?php echo $row['item_total_times_collected'] ?>" name="item_total_times_collected" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;" required>
+        </td>
+        <td class="item-total-times-sold edit-input hidden" style="text-align: center">
+            <input class="frutiger-inset-tile" value="<?php echo $row['item_total_times_sold'] ?>" name="item_total_times_sold" form="edit_item_<?php echo $row['item_id'] ?>" style="text-align: center;" required>
+        </td>
 
-                <!-- Admin actions -->
-                <?php if ($user_access_level == -1): ?>
-                <!-- Editing and deleting row -->
-                <td class="admin-actions item-display" style="text-align: center">
-                    <button style="background-image: url('images/icons/edit.png')" title="Edit Item"
-                        onclick="EditItem(<?php echo $row['item_id'] ?>, {
-                            'name': '<?php echo $row['item_name'] ?>',
-                            'rarity': '<?php echo $row['item_rarity'] ?>',
-                            'sell_value': <?php echo $row['item_sell_value'] ?>,
-                            'times_collected': <?php echo $row['item_total_times_collected'] ?>,
-                            'times_sold': <?php echo $row['item_total_times_sold'] ?>
-                        })">
-                    </button>
-                    <button style="background-image: url('images/icons/delete.png')" title="Delete Item"
-                        onclick="ConfirmationPopup('Are you sure?', 'This will permanently delete Item ID <?php echo $row['item_id'] ?> (\'<?php echo $row['item_name'] ?>\') from the database.', 'delete_item', {'itemId': <?php echo $row['item_id'] ?>})">
-                    </button>
-                </td>
-                <!-- Confirming or canceling edits -->
-                    <td class="admin-actions edit-input hidden" style="text-align: center">
-                    <button style="background-image: url('images/icons/confirm.png')" title="Submit Edits"
-                        onclick="ConfirmationPopup('Are you sure?', 'This will overwrite the existing data for Item ID <?php echo $row['item_id'] ?>.', 'edit_item', {'itemId': <?php echo $row['item_id'] ?>})">
-                    </button>
-                    <button style="background-image: url('images/icons/cancel.png')" title="Cancel Edits"
-                        onclick="ConfirmationPopup('Are you sure?', 'This will revert any changes made to Item Id <?php echo $row['item_id'] ?>.', 'cancel_edit', {'itemId': <?php echo $row['item_id'] ?>})">
-                    </button>
-                </td>
-                <?php endif ?>
-            </tr>
+        <!-- Admin actions -->
+        <?php if ($user_access_level == -1): ?>
+        <!-- Editing and deleting row -->
+        <td class="admin-actions item-display" style="text-align: center">
+            <button style="background-image: url('images/icons/edit.png')" title="Edit Item"
+                onclick="EditItem(<?php echo $row['item_id'] ?>, {
+                    'name': '<?php echo $row['item_name'] ?>',
+                    'rarity': '<?php echo $row['item_rarity'] ?>',
+                    'sell_value': <?php echo $row['item_sell_value'] ?>,
+                    'times_collected': <?php echo $row['item_total_times_collected'] ?>,
+                    'times_sold': <?php echo $row['item_total_times_sold'] ?>
+                })">
+            </button>
+            <button style="background-image: url('images/icons/delete.png')" title="Delete Item"
+                onclick="ConfirmationPopup('Are you sure?', 'This will permanently delete Item ID <?php echo $row['item_id'] ?> (\'<?php echo $row['item_name'] ?>\') from the database.', 'delete_item', {'itemId': <?php echo $row['item_id'] ?>})">
+            </button>
+        </td>
+        <!-- Confirming or canceling edits -->
+            <td class="admin-actions edit-input hidden" style="text-align: center">
+            <button style="background-image: url('images/icons/confirm.png')" title="Submit Edits"
+                onclick="ConfirmationPopup('Are you sure?', 'This will overwrite the existing data for Item ID <?php echo $row['item_id'] ?>.', 'edit_item', {'itemId': <?php echo $row['item_id'] ?>})">
+            </button>
+            <button style="background-image: url('images/icons/cancel.png')" title="Cancel Edits"
+                onclick="ConfirmationPopup('Are you sure?', 'This will revert any changes made to Item Id <?php echo $row['item_id'] ?>.', 'cancel_edit_item', {'itemId': <?php echo $row['item_id'] ?>})">
+            </button>
+        </td>
+        <?php endif ?>
+    </tr>
             <?php }
         }
     ?>

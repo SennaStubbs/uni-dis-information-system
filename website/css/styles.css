@@ -952,23 +952,23 @@ a {
 }
 
 /* Add item */
-#add-item-container {
+.add-container {
     padding: 10px;
     text-shadow: 0px 1px 5px black;
 }
 
-#add-item-container h1 {
+.add-container h1 {
     font-size: 24px;
     text-align: center;
 
     margin: 0 0 4px 0;
 }
 
-#add-item-container * {
+.add-container * {
     position: relative;
 }
 
-#add-item-container form {
+.add-container form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -976,21 +976,21 @@ a {
     gap: 5px;
 }
 
-#add-item-container form label {
+.add-container form label {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#add-item-container form select,
-#add-item-container form select option,
-#add-item-container form textarea {
+.add-container form select,
+.add-container form select option,
+.add-container form textarea {
     margin-left: 10px;
 
     color: black;
 }
 
-#add-item-container form input {
+.add-container form input {
     height: 1.5em;
 
     margin-left: 10px;
@@ -1000,7 +1000,7 @@ a {
     text-shadow: 0px 1px 3px black;
 }
 
-#add-item-container .buttons {
+.add-container .buttons {
     display: flex;
     justify-content: center;
     align-content: center;

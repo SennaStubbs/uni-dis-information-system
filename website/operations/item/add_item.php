@@ -32,10 +32,6 @@
         exit();
     }
 
-    echo ($item_name && $item_rarity && $item_sell_value && $item_total_times_collected && $item_total_times_sold);
-
-    // echo $item_name, $item_description, $item_rarity, $item_sell_value, $item_total_times_collected, $item_total_times_sold;
-
     if (trim($item_name) != '' && $item_rarity != false) {
         $sql = "INSERT INTO items (item_name, item_description, item_rarity, item_sell_value, item_total_times_collected, item_total_times_sold)
                 VALUES (?, ?, ?, ?, ?, ?)";

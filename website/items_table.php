@@ -77,7 +77,7 @@
 					<button class="frutiger-tile" id="table-add-item" onclick="ShowAddItem()">
 						Add Item
 					</button>
-					<div class="frutiger-tile hidden" id="add-item-container">
+					<div class="frutiger-tile add-container hidden" id="add-item-container">
 						<h1>Add Item</h1>
 						<form id="add-item">
 							<label>Item Name: <input form="add-item" class="frutiger-inset-tile" name="item_name" data-default-value="" required /></label>

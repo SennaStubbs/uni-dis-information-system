@@ -35,6 +35,7 @@ function ConfirmationPopup(question, message, action, actionValues) {
 
     popupCancelButton.style.display = "block";
 
+    // Item actions
     if (action == 'delete_item' && actionValues['itemId']) {
         function _() {
             Post_DeleteItem(actionValues['itemId']);
@@ -49,16 +50,42 @@ function ConfirmationPopup(question, message, action, actionValues) {
         popupContinueButton.addEventListener('click', _);
         popup_ContinueFunction = _;
     }
-    else if (action == 'cancel_edit' && actionValues['itemId']) {
+    else if (action == 'cancel_edit_item' && actionValues['itemId']) {
         function _() {
             CancelItemEdit(actionValues['itemId']);
             ClosePopup();
-            currentlyEditingId = -1;
-            defaultEditingValues = {};
 
             // If trying to edit an item while another item is currently being edited
             if (actionValues['tryingToEdit_ItemId']) {
                 EditItem(actionValues['tryingToEdit_ItemId']);
+            }
+        }
+        popupContinueButton.addEventListener('click', _);
+        popup_ContinueFunction = _;
+    }
+    // User actions
+    else if (action == 'delete_user' && actionValues['userId']) {
+        function _() {
+            Post_DeleteUser(actionValues['userId']);
+        }
+        popupContinueButton.addEventListener('click', _);
+        popup_ContinueFunction = _;
+    }
+    else if (action == 'edit_user' && actionValues['userId']) {
+        function _() {
+            Post_EditUser(actionValues['userId']);
+        }
+        popupContinueButton.addEventListener('click', _);
+        popup_ContinueFunction = _;
+    }
+    else if (action == 'cancel_edit_user' && actionValues['userId']) {
+        function _() {
+            CancelUserEdit(actionValues['userId']);
+            ClosePopup();
+
+            // If trying to edit an item while another item is currently being edited
+            if (actionValues['tryingToEdit_UserId']) {
+                EditItem(actionValues['tryingToEdit_UserId']);
             }
         }
         popupContinueButton.addEventListener('click', _);

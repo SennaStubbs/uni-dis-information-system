@@ -23,6 +23,10 @@ This project was developed for the **Developing Information Systems** module of 
 5. Place the **'website'** folder into the newly created **'information_system'** directory
 6. Go to **'http://localhost/information_system/website/'** in your browser (renaming any folders will break the website)
 
-All user accounts have plaintext passwords stored in the database, allowing you to log in with what you find in the '**users**' table.
+All user accounts have *plaintext* passwords stored in the database, allowing you to log in with what you find in the '**users**' table.
 
 ---
+
+# Things to note
+- The variable names for SQL queries and statements are mixed up throughout this project due to the large period of time between starting and finishing this project with new development practices learnt and implemented over that time. Apologies :P
+- There is no password hashing for user accounts as it was not a priority for the outcome of this project.
