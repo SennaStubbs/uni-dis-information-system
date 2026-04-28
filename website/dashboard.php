@@ -42,14 +42,13 @@
 
             <?php
                 // Draw chart functions
-                function DrawPieChart($chartId, $sqlTotalQuery, $sqlRarityQuery, $dbconnect, $shadow = false) {
+                function DrawPieChart($chartId, $sqlTotalQuery, $sqlRarityQuery, $dbconnect, $rarityOrder, $shadow = false) {
                     // Chart variables
                     $chartSize = 300;
                     $chartMidpoint = $chartSize / 2;
 
                     // Total value
-                    $sql = $sqlTotalQuery;
-                    $stmt = $dbconnect -> prepare($sql);
+                    $stmt = $dbconnect -> prepare($sqlTotalQuery);
                     $stmt -> execute();
                     $result = $stmt -> get_result();
                     
@@ -57,13 +56,10 @@
                     $totalValue = 0;
 
                     // Get individual rarity average
-                    $rarityOrder = ['Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Mythic', 'Exotic', 'Unreal'];
-
                     $rarityInfo = [];
 
                     foreach($rarityOrder as $rarity) {
-                        $sql = $sqlRarityQuery;
-                        $stmt = $dbconnect -> prepare($sql);
+                        $stmt = $dbconnect -> prepare($sqlRarityQuery);
                         $stmt -> bind_param('s', $rarity);
                         $stmt -> execute();
                         $result = $stmt -> get_result();
@@ -197,9 +193,75 @@
                     return $total;
                 }
 
-                function DrawBarChart() {
+                function DrawBarChart($chartId, $sqlQuery, $dbconnect, $rarityOrder) { ?>
+                    <div class="bar-names">
+                        <?php
+                            foreach($rarityOrder as $rarity) { ?>
+                        <h1><?php echo $rarity ?></h1>
+                            <?php }
+                        ?>
+                    </div>
+                    <div class="bars">
+                        <?php
+                            $rows = [];
+                            $totalValue = 0;
+                            $highestValue = 0;
+                            foreach($rarityOrder as $rarity) {
+                                $stmt = $dbconnect -> prepare($sqlQuery);
+                                $stmt->bind_param('s', $rarity);
+                                $stmt -> execute();
+                                $result = $stmt -> get_result();
 
-                }
+                                
+                                if (mysqli_num_rows($result) > 0) {
+                                    while ($row = mysqli_fetch_assoc($result)) { 
+                                        array_push($rows, array(
+                                            "rarity" => $rarity,
+                                            "sum" => $row['sum']
+                                        ));
+                                        $totalValue += $row['sum'];
+                                        if ($row['sum'] > $highestValue) {
+                                            $highestValue = $row['sum'];
+                                        }
+                                    }
+                                }
+                            }
+                            $incrementalValue = (int)(substr(ceil($highestValue / 9), 0, 1) . str_repeat('0', strlen(ceil($highestValue / 9)) - 1));
+
+                            
+                            foreach($rows as $row) { ?>
+                            <div class="bar frutiger-tile <?php echo $row['rarity'] ?>"
+                                id="<?php echo $chartId ?>-<?php echo $row['rarity'] ?>"
+                                style="width: <?php echo (($row['sum'] / ($incrementalValue * 11)) * 100) . '%' ?>"
+                                data-rarity="<?php echo $row['rarity'] ?>"
+
+                                onmouseover="Bar_HoverSection(event, this, '<?php echo $row['rarity'] ?>', <?php echo $row['sum'] ?>)"
+                                onmousemove="MoveTooltip(event, this)"
+                                onmouseleave="HideTooltip(event, this)"
+                                onclick="SelectRarityFilter(``, this)"
+                            ></div>
+                            <?php }
+                        ?>
+                    </div>
+                    <div class="bottom-axis">
+                        <div class="bar-names">
+                            <h1 style="font-weight: normal">Times Sold</h1>
+                        </div>
+                        <div class="counters">
+                            <h2></h2>
+                            <?php 
+
+                                for ($i = 1; $i <= 10; $i++) { ?>
+                            <h2><?php echo $incrementalValue * $i ?></h2>
+                                <?php }
+
+                                if ($highestValue % $incrementalValue != 0) { ?>
+                                    <h2><?php echo $incrementalValue * 11 ?></h2>
+                                <?php }
+                            ?>
+                        </div>
+                    </div>
+                <?php }
             ?>
 
             <div class="dashboard frutiger-glossy">
@@ -225,7 +287,8 @@
                                     "pie-total-items",
                                     "SELECT COUNT(item_id) AS 'value' FROM items",
                                     "SELECT COUNT(item_id) AS 'value' FROM (SELECT item_id FROM items WHERE item_rarity = ?) items",
-                                    $dbconnect
+                                    $dbconnect,
+                                    $rarityOrder
                                 );
                             ?>
                         </svg>
@@ -237,12 +300,13 @@
                                     "SELECT COUNT(item_id) AS 'value' FROM items",
                                     "SELECT COUNT(item_id) AS 'value' FROM (SELECT item_id FROM items WHERE item_rarity = ?) items",
                                     $dbconnect,
+                                    $rarityOrder,
                                     true
                                 );
                             ?>
                         </svg>
                     </div>
-                    <h2>Total<span class="hidden"> (from selection)</span>: <span class="value" id="pie-total-items-total"><?php echo $total ?> Items</span></h2>
+                    <h2>Total<span class="from-selection hidden"> (from selection)</span>: <span class="value" id="pie-total-items-total"><?php echo $total ?> Items</span></h2>
                 </div>
 
                 <!-- Average sell value of items by rarity -->
@@ -255,7 +319,8 @@
                                     "pie-average-sell-value",
                                     "SELECT Avg(item_sell_value) AS 'value' FROM items",
                                     "SELECT Avg(item_sell_value) AS 'value' FROM (SELECT item_sell_value FROM items WHERE item_rarity = ?) items",
-                                    $dbconnect
+                                    $dbconnect,
+                                    $rarityOrder
                                 );
                             ?>
                         </svg>
@@ -267,12 +332,13 @@
                                     "SELECT Avg(item_sell_value) AS 'value' FROM items",
                                     "SELECT Avg(item_sell_value) AS 'value' FROM (SELECT item_sell_value FROM items WHERE item_rarity = ?) items",
                                     $dbconnect,
+                                    $rarityOrder,
                                     true
                                 );
                             ?>
                         </svg>
                     </div>
-                    <h2>Average<span class="hidden"> (from selection)</span>: <span class="value" id="pie-average-sell-value-total"><?php echo $average ?> Gold Coins</span></h2>
+                    <h2>Average<span class="from-selection hidden"> (from selection)</span>: <span class="value" id="pie-average-sell-value-total"><?php echo $average ?> Gold Coins</span></h2>
                 </div>
 
                 <!-- Top 10 highest valued items -->
@@ -281,83 +347,22 @@
                     <?php include('operations/dashboard/fetch_high_value_items.php') ?>
                  </div>
 
+                <!-- Total times collected -->
+                <div class="chart-container frutiger-tile">
+                    <h1>Total Times Collected</h1>
+                    <div class="bar-chart" id="bar-times-collected" data-operation="sum_collected" data-value-prefix="Total" data-value-type="Times">
+                        <?php DrawBarChart('bar-times-collected', "SELECT SUM(item_total_times_collected) AS 'sum' FROM items WHERE item_rarity = ?", $dbconnect, $rarityOrder); ?>
+                    </div>
+                    <h2>Total<span class="from-selection hidden"> (from selection)</span>: <span class="value" id="bar-times-collected-counter"><?php echo $totalValue ?> Times</span></h2>
+                </div>
+
                 <!-- Total times sold -->
                 <div class="chart-container frutiger-tile">
                     <h1>Total Times Sold</h1>
-                    <div class="bar-chart" id="bar-times-sold" data-operation="sum" data-value-prefix="Total" data-value-type="Times">
-                        <div class="bar-names">
-                            <?php
-                                foreach($rarityOrder as $rarity) { ?>
-                            <h1><?php echo $rarity ?></h1>
-                                <?php }
-                            ?>
-                        </div>
-                        <div class="bars">
-                            <?php
-                                // Chart variables
-                                $_chartSize = 300;
-                                $_chartMidpoint = $_chartSize / 2;
-
-
-                                // Get necessary numbers
-                                $rows = [];
-                                $highestValue = 0;
-                                foreach($rarityOrder as $rarity) {
-                                    $_sql = "SELECT SUM(item_total_times_sold) AS 'sum' FROM items WHERE item_rarity = ?";
-                                    $_stmt = $dbconnect -> prepare($_sql);
-                                    $_stmt->bind_param('s', $rarity);
-                                    $_stmt -> execute();
-                                    $_result = $_stmt -> get_result();
-
-                                    
-                                    if (mysqli_num_rows($_result) > 0) {
-                                        while ($row = mysqli_fetch_assoc($_result)) { 
-                                            array_push($rows, array(
-                                                "rarity" => $rarity,
-                                                "sum" => $row['sum']
-                                            ));
-                                            if ($row['sum'] > $highestValue) {
-                                                $highestValue = $row['sum'];
-                                            }
-                                        }
-                                    }
-                                }
-                                $incrementalValue = (int)(substr(ceil($highestValue / 9), 0, 1) . str_repeat('0', strlen(ceil($highestValue / 9)) - 1));
-
-                                
-                                foreach($rows as $row) { ?>
-                                <div class="bar frutiger-tile <?php echo $row['rarity'] ?>"
-                                    style="width: <?php echo (($row['sum'] / ($incrementalValue * 11)) * 100) . '%' ?>"
-                                    data-rarity="<?php echo $row['rarity'] ?>"
-
-                                    onmouseover="Bar_HoverSection(event, this, '<?php echo $row['rarity'] ?>', <?php echo $row['sum'] ?>)"
-                                    onmousemove="MoveTooltip(event, this)"
-                                    onmouseleave="/*Pie_ResetSection(event, this);*/ HideTooltip(event, this)"
-                                    onclick="SelectRarityFilter(``, this)"
-                                ></div>
-                                <?php }
-                            ?>
-                        </div>
-                        <div class="bottom-axis">
-                            <div class="bar-names">
-                                <h1 style="font-weight: normal">Times Sold</h1>
-                            </div>
-                            <div class="counters">
-                                <h2></h2>
-                                <?php 
-
-                                    for ($i = 1; $i <= 10; $i++) { ?>
-                                <h2><?php echo $incrementalValue * $i ?></h2>
-                                    <?php }
-
-                                    if ($highestValue % $incrementalValue != 0) { ?>
-                                        <h2><?php echo $incrementalValue * 11 ?></h2>
-                                    <?php }
-                                ?>
-                            </div>
-                        </div>
+                    <div class="bar-chart" id="bar-times-sold" data-operation="sum_sold" data-value-prefix="Total" data-value-type="Times">
+                        <?php DrawBarChart('bar-times-sold', "SELECT SUM(item_total_times_sold) AS 'sum' FROM items WHERE item_rarity = ?", $dbconnect, $rarityOrder); ?>
                     </div>
-                    <h2>Average<span class="hidden"> (from selection)</span>: <span class="value" id="bar-times-sold-total"><?php echo '' ?> Times</span></h2>
+                    <h2>Total<span class="from-selection hidden"> (from selection)</span>: <span class="value" id="bar-times-sold-counter"><?php echo $totalValue ?> Times</span></h2>
                 </div>
             </div>
         </main>

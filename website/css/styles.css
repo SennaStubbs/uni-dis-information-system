@@ -1454,6 +1454,8 @@ div {
     flex-direction: row;
 
     margin-left: -10px;
+
+    border-left: 2px solid white;
 }
 
 .bar-chart .bottom-axis .counters h2 {
@@ -1514,7 +1516,7 @@ div {
     padding: 5px 0;
 
     border: 2px solid white;
-    border-radius: 10px;
+    border-radius: 10px 10px 10px 0;
 
     box-sizing: border-box;
 
@@ -1528,4 +1530,20 @@ div {
     border-radius: 0px 5px 5px 0px;
 
     box-sizing: border-box;
+
+    transition: all .2s ease;
+}
+
+/* Hide section if another has been selected */
+.bar-chart .bars .bar:not([data-selected='true']):has(~ .bar[data-selected='true']),
+.bar-chart .bars .bar[data-selected='true'] ~ .bar:not([data-selected='true']) {
+    opacity: 50%;
+
+    filter: grayscale(80%);
+}
+
+.bar-chart .bars .bar:not([data-selected='true']):has(~ .bar[data-selected='true']):hover,
+.bar-chart .bars .bar[data-selected='true'] ~ .bar:not([data-selected='true']):hover {
+    opacity: 80%;
+    filter: grayscale(30%);
 }

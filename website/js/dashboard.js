@@ -10,22 +10,25 @@ async function FilterUpdate(initialising) {
     // Update cookie
     document.cookie = 'dashboard_rarities=' + selectedRarities.toString();
 
+    // Filter buttons
+    let rarityIndex = 0;
+    for (let rarity of rarityOrder) {
+        if (selectedRarities.includes(rarity))
+            filterButtons[rarityIndex].classList.remove('not-selected')
+        else
+            filterButtons[rarityIndex].classList.add('not-selected')
+        rarityIndex++;
+    }
+
     // Pie charts
     for (let pieChart of document.getElementsByClassName('pie-chart')) {
-        let rarityIndex = 0;
         for (let rarity of rarityOrder) {
             let section = document.getElementById(pieChart.id + '-' + rarity);
             if (section) {
                 section.dataset.selected = selectedRarities.includes(rarity);
-                if (selectedRarities.includes(rarity))
-                    filterButtons[rarityIndex].classList.remove('not-selected')
-                else
-                    filterButtons[rarityIndex].classList.add('not-selected')
 
                 Pie_UpdateSection(section);
             }
-                
-            rarityIndex++;
         }
 
         if (!pieChart.classList.contains('shadow')) {
@@ -41,8 +44,46 @@ async function FilterUpdate(initialising) {
             .then((data) => {
                 let totalElement = document.getElementById(pieChart.id + '-total');
                 totalElement.innerHTML = data + " " + pieChart.dataset.valueType;
+
+                let hiddenElement = totalElement.parentElement.getElementsByClassName('from-selection')[0];
+                if (selectedRarities.length > 0) {
+                    hiddenElement.classList.remove('hidden');
+                } else {
+                    hiddenElement.classList.add('hidden');
+                }
             });
         }
+    }
+
+    // Bar charts
+    for (let barChart of document.getElementsByClassName('bar-chart')) {
+        for (let rarity of rarityOrder) {
+            let bar = document.getElementById(barChart.id + '-' + rarity);
+            console.log(barChart.id);
+            if (bar) {
+                bar.dataset.selected = selectedRarities.includes(rarity);
+            }
+        }
+
+        // Update counter
+        let formData = new FormData();
+        formData.append('rarities', selectedRarities);
+        await fetch(window.location.origin + "/information_system/website/operations/dashboard/fetch_" + barChart.dataset.operation, {
+            method: 'POST',
+            body: formData
+        })
+        .then((response) => response.text())
+        .then((data) => {
+            let totalElement = document.getElementById(barChart.id + '-counter');
+            totalElement.innerHTML = data + " " + barChart.dataset.valueType;
+
+            let hiddenElement = totalElement.parentElement.getElementsByClassName('from-selection')[0];
+            if (selectedRarities.length > 0) {
+                hiddenElement.classList.remove('hidden');
+            } else {
+                hiddenElement.classList.add('hidden');
+            }
+        });
     }
 
     // Tables
