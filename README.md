@@ -28,3 +28,4 @@ These are notes that were taken during development to address certain issues tha
 - The variable names for SQL queries and statements are mixed up throughout this project due to the large period of time between starting and finishing this project with new development practices learnt and implemented over that time. Apologies :P
 - There is no password hashing for user accounts as it was not a priority for the outcome of this project.
 - A lot of the items have duplicate names due to the limitations of Mockaroo, however this is a demonstration and does not matter.
+- The 'item_description' column within the 'items' table is not used anywhere within the project.
